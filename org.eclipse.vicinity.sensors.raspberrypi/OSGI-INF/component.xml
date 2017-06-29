@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" immediate="true" name="org.eclipse.vicinity.sensor.raspberrypi">
+   <implementation class="org.eclipse.vicinity.sensors.raspberrypi.BMP280SensorService"/>
+   <service>
+      <provide interface="org.eclipse.vicinity.sensors.SensorService"/>
+   </service>
+   <reference bind="addSensorChangedListener" cardinality="0..n" interface="org.eclipse.vicinity.sensors.SensorChangedListener" name="SensorChangedListener" policy="dynamic" unbind="removeSensorChangedListener"/>
+</scr:component>
