@@ -1,4 +1,4 @@
-package org.eclipse.vicinity.sensors;
+package org.unikl.adapter.sensors;
 
 public interface SensorService {
 	class NoSuchSensorOrActuatorException extends Exception {

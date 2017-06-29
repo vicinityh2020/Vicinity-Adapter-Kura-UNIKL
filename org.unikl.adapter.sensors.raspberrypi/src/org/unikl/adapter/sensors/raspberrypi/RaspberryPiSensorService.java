@@ -1,6 +1,6 @@
-package org.eclipse.vicinity.sensors.raspberrypi;
+package org.unikl.adapter.sensors.raspberrypi;
 
-import org.eclipse.vicinity.sensors.SensorService;
+import org.unikl.adapter.sensors.SensorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
