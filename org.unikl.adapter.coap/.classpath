@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/Admin/kura-ws/org.eclipse.vicinity.coap/libs/californium-osgi-1.0.0-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Admin/kura-3.0/org.unikl.adapter.coap/libs/californium-osgi-1.0.0-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

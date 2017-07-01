@@ -9,8 +9,8 @@ import org.unikl.adapter.sensors.SensorService.NoSuchSensorOrActuatorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class VicinityCoapServer implements SensorChangedListener {
-	private static final Logger s_logger = LoggerFactory.getLogger(VicinityCoapServer.class);
+public class UniklCoapServer implements SensorChangedListener {
+	private static final Logger s_logger = LoggerFactory.getLogger(UniklCoapServer.class);
 	
 	private CoapServer _coapServer;
 	
@@ -20,12 +20,12 @@ public class VicinityCoapServer implements SensorChangedListener {
 
 	private SensorService _sensorService;
 
-	public VicinityCoapServer() {
+	public UniklCoapServer() {
 		super();
 
-		_uniklAdapterResource = new CoapResource("gh");
-		_sensorsRootResource = new CoapResource("sens");
-		_actuatorsRootResource = new CoapResource("act");
+		_uniklAdapterResource = new CoapResource("unikl");
+		_sensorsRootResource = new CoapResource("sensors");
+		_actuatorsRootResource = new CoapResource("actuators");
 
 		_uniklAdapterResource.add(_sensorsRootResource, _actuatorsRootResource);
 	}
@@ -39,7 +39,7 @@ public class VicinityCoapServer implements SensorChangedListener {
 	}
 
 	protected void activate(ComponentContext componentContext) {
-		s_logger.info("Activating UniklAdapterCoapServer...");
+		s_logger.info("Activating UniklCoapServer...");
 
 		_coapServer = new CoapServer();
 		_coapServer.add(_uniklAdapterResource);
@@ -48,11 +48,9 @@ public class VicinityCoapServer implements SensorChangedListener {
 		/* create sensors for the BMP280 */
 		SensorResource temperatureSensor = new SensorResource("temperature");
 		SensorResource pressureSensor = new SensorResource("pressure");
-		SensorResource humiditySensor = new SensorResource("humidity");
 
 		_sensorsRootResource.add(temperatureSensor);
 		_sensorsRootResource.add(pressureSensor);
-		_sensorsRootResource.add(humiditySensor);
 		//_actuatorsRootResource.add(hueLight);
 
 		/* add sensors */
@@ -65,33 +63,27 @@ public class VicinityCoapServer implements SensorChangedListener {
 			SensorResource pressureResource = new SensorResource("pressure");
 			pressureResource.setSensorValue("" + _sensorService.getSensorValue("pressure"));
 			_sensorsRootResource.add(pressureResource);
-			
-			SensorResource humidityResource = new SensorResource("humidity");
-			humidityResource.setSensorValue("" + _sensorService.getSensorValue("humidity"));
-			_sensorsRootResource.add(humidityResource);
-			
 		} catch (NoSuchSensorOrActuatorException e) {
 			e.printStackTrace();
 		}
 
-		s_logger.info("Activating UniklAdapterCoapServer... Done.");
+		s_logger.info("Activating UniklCoapServer... Done.");
 	}
 
 	protected void deactivate(ComponentContext componentContext) {
-		s_logger.debug("Deactivating UniklAdapterCoapServer...");
+		s_logger.debug("Deactivating UniklCoapServer...");
 
 		_coapServer.stop();
 
-		s_logger.debug("Deactivating UniklAdapterCoapServer... Done.");
+		s_logger.debug("Deactivating UniklCoapServer... Done.");
 	}
 
 	@Override
 	public void sensorChanged(String sensorName, Object newValue) {
-		SensorResource sensorResource = (SensorResource) _sensorsRootResource
-				.getChild(sensorName);
+		SensorResource sensorResource = (SensorResource) _sensorsRootResource.getChild(sensorName);
+		
 		if (sensorResource != null) {
 			sensorResource.setSensorValue(newValue.toString());
 		}
 	}
-
 }
