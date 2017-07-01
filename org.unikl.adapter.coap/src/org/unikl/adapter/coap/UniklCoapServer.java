@@ -1,5 +1,8 @@
 package org.unikl.adapter.coap;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
 import org.osgi.service.component.ComponentContext;
@@ -66,6 +69,29 @@ public class UniklCoapServer implements SensorChangedListener {
 		} catch (NoSuchSensorOrActuatorException e) {
 			e.printStackTrace();
 		}
+		
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			  @Override
+			  public void run() {
+					SensorResource temperatureResource = new SensorResource("temperature");
+					try {
+						temperatureResource.setSensorValue("" + _sensorService.getSensorValue("temperature"));
+					} catch (NoSuchSensorOrActuatorException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					_sensorsRootResource.add(temperatureResource);
+					
+					SensorResource pressureResource = new SensorResource("pressure");
+					try {
+						pressureResource.setSensorValue("" + _sensorService.getSensorValue("pressure"));
+					} catch (NoSuchSensorOrActuatorException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					_sensorsRootResource.add(pressureResource);			  }
+			}, 500, 500);
 
 		s_logger.info("Activating UniklCoapServer... Done.");
 	}
@@ -81,7 +107,7 @@ public class UniklCoapServer implements SensorChangedListener {
 	@Override
 	public void sensorChanged(String sensorName, Object newValue) {
 		SensorResource sensorResource = (SensorResource) _sensorsRootResource.getChild(sensorName);
-		
+
 		if (sensorResource != null) {
 			sensorResource.setSensorValue(newValue.toString());
 		}
