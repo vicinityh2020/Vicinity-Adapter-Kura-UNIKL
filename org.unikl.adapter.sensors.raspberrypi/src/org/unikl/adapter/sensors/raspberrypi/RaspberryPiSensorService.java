@@ -23,7 +23,6 @@ public class RaspberryPiSensorService implements SensorService{
 	private static BMP280 _bmp280;
 	double _temperature;
 	double _pressure;
-	double _value;
 
 	protected void activate() throws Exception {
 		_bmp280 = new BMP280(BMP280.Protocol.I2C, BMP280.ADDR_SDO_2_VDDIO, I2CBus.BUS_1);
@@ -42,20 +41,8 @@ public class RaspberryPiSensorService implements SensorService{
 		_bmp280.setPressureSampleRate(Pressure_Sample_Resolution.SIXTEEN, true);
 		_bmp280.setIIRFilter(IIRFilter.SIXTEEN, true);
 		_bmp280.setStandbyTime(Standby_Time.MS_POINT_5, true);
-		
-		s_logger.info("+++++++++++ 1");
 
-		while(true) {
-			double[] results = _bmp280.sampleDeviceReads();
-			
-			// Output data to screen
-			s_logger.info("Pressure : {}", results[BMP280.PRES_VAL]);
-			s_logger.info("Temperature in Celsius : {}", results[BMP280.TEMP_VAL_C]);
-			
-			Thread.sleep(1000);
-		}
-
-		//s_logger.info("[" + PPOJECT_ID + "] " + BUNDLE_ID + " bundle is loaded");
+		s_logger.info("[" + PPOJECT_ID + "] " + BUNDLE_ID + " bundle is loaded");
 	}
 	
 	protected void deactivate() {
@@ -65,9 +52,25 @@ public class RaspberryPiSensorService implements SensorService{
 	@Override
 	public Object getSensorValue(String sensorName) throws NoSuchSensorOrActuatorException {
 		if ("temperature".equals(sensorName)) {
-			return null/* readTemperature() */;
-		} else if ("light".equals(sensorName)) {
-			return null /*readLightState()*/;
+			double[] results = null;
+			try {
+				results = _bmp280.sampleDeviceReads();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			s_logger.info("Temperature in Celsius : {}", results[BMP280.TEMP_VAL_C]);
+			return results[BMP280.TEMP_VAL_C];
+		} else if ("pressure".equals(sensorName)) {
+			double[] results = null;
+			try {
+				results = _bmp280.sampleDeviceReads();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			s_logger.info("Pressure : {}", results[BMP280.PRES_VAL]);
+			return results[BMP280.PRES_VAL];
 		} else
 			throw new SensorService.NoSuchSensorOrActuatorException();
 	}
