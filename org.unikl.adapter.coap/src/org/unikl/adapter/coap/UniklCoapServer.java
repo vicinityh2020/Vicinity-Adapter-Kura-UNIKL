@@ -23,6 +23,10 @@ public class UniklCoapServer implements SensorChangedListener {
 
 	private SensorService _sensorService;
 
+	/* Connected sensors */
+	SensorResource temperatureResource = new SensorResource("temperature", "Thermostate");
+	SensorResource pressureResource = new SensorResource("pressure", "Pressure Gauge");
+
 	public UniklCoapServer() {
 		super();
 
@@ -48,22 +52,14 @@ public class UniklCoapServer implements SensorChangedListener {
 		_coapServer.add(_uniklAdapterResource);
 		_coapServer.start();
 
-		/* create sensors for the BMP280 */
-		SensorResource temperatureSensor = new SensorResource("temperature");
-		SensorResource pressureSensor = new SensorResource("pressure");
-
-		_sensorsRootResource.add(temperatureSensor);
-		_sensorsRootResource.add(pressureSensor);
 		//_actuatorsRootResource.add(hueLight);
 
 		/* add sensors */
 		/* TODO: fix it for the case of a big number of sensors */
 		try {
-			SensorResource temperatureResource = new SensorResource("temperature");
 			temperatureResource.setSensorValue("" + _sensorService.getSensorValue("temperature"));
 			_sensorsRootResource.add(temperatureResource);
 			
-			SensorResource pressureResource = new SensorResource("pressure");
 			pressureResource.setSensorValue("" + _sensorService.getSensorValue("pressure"));
 			_sensorsRootResource.add(pressureResource);
 		} catch (NoSuchSensorOrActuatorException e) {
@@ -74,7 +70,6 @@ public class UniklCoapServer implements SensorChangedListener {
 		timer.scheduleAtFixedRate(new TimerTask() {
 			  @Override
 			  public void run() {
-					SensorResource temperatureResource = new SensorResource("temperature");
 					try {
 						temperatureResource.setSensorValue("" + _sensorService.getSensorValue("temperature"));
 					} catch (NoSuchSensorOrActuatorException e) {
@@ -83,7 +78,6 @@ public class UniklCoapServer implements SensorChangedListener {
 					}
 					_sensorsRootResource.add(temperatureResource);
 					
-					SensorResource pressureResource = new SensorResource("pressure");
 					try {
 						pressureResource.setSensorValue("" + _sensorService.getSensorValue("pressure"));
 					} catch (NoSuchSensorOrActuatorException e) {

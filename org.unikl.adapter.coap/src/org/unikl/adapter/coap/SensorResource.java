@@ -1,14 +1,21 @@
 package org.unikl.adapter.coap;
 
 import org.eclipse.californium.core.CoapResource;
+import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
 public class SensorResource extends CoapResource {
 
 	private String sensorValue;
+	private String type;
+	private String name;
 
-	public SensorResource(String name) {
+	public SensorResource(String name, String type) {
 		super(name);
+		
+		this.name = name;
+		this.type = type;
+		
 		setObservable(true);
 	}
 
@@ -23,7 +30,9 @@ public class SensorResource extends CoapResource {
 
 	@Override
 	public void handleGET(CoapExchange exchange) {
-		exchange.respond(sensorValue);
+        final int port = exchange.advanced().getEndpoint().getAddress().getPort();
+        exchange.respond(CoAP.ResponseCode.CONTENT,
+                "{ \"value\": " + sensorValue 
+                + ", \"timestamp\": " + "\"" + System.currentTimeMillis() + "\"" + " }");
 	}
-
 }
