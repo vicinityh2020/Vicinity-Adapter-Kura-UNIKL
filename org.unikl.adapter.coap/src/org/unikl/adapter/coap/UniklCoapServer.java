@@ -30,11 +30,11 @@ public class UniklCoapServer implements SensorChangedListener {
 		_uniklAdapterResource.add(_sensorsRootResource, _actuatorsRootResource);
 	}
 
-	protected void setUniklAdapterSensorService(SensorService sensorService) {
+	protected void setUniklSensorService(SensorService sensorService) {
 		_sensorService = sensorService;
 	}
 
-	protected void unsetUniklAdapterSensorService(SensorService sensorService) {
+	protected void unsetUniklSensorService(SensorService sensorService) {
 		_sensorService = null;
 	}
 

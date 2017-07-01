@@ -1,7 +1,11 @@
 package org.unikl.adapter.sensors.raspberrypi;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.unikl.adapter.sensors.SensorChangedListener;
 import org.unikl.adapter.sensors.SensorService;
 
 import com.pi4j.io.i2c.I2CBus;
@@ -19,6 +23,8 @@ public class RaspberryPiSensorService implements SensorService{
 	// TODO: separate file with global definitions?
 	private static final String PPOJECT_ID = "VICINITY"; 
 	private static final String BUNDLE_ID = "org.unikl.adapter.sensors.raspberrypi";
+	
+	private List<SensorChangedListener> _listeners = new CopyOnWriteArrayList<SensorChangedListener>();
 	
 	private static BMP280 _bmp280;
 	double _temperature;
@@ -78,5 +84,19 @@ public class RaspberryPiSensorService implements SensorService{
 	@Override
 	public void setActuatorValue(String actuatorName, Object value) throws NoSuchSensorOrActuatorException {
 		// TODO Auto-generated method stub
+	}
+	
+	public void addSensorChangedListener(SensorChangedListener listener) {
+		_listeners.add(listener);
+	}
+
+	public void removeSensorChangedListener(SensorChangedListener listener) {
+		_listeners.remove(listener);
+	}
+
+	private void notifyListeners(String sensorName, Object newValue) {
+		for (SensorChangedListener listener : _listeners) {
+			listener.sensorChanged(sensorName, newValue);
+		}		
 	}
 }
