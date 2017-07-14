@@ -1,0 +1,995 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<repository name='file:/jobs/genie.kura/kura-release/workspace/kura/distrib/target/staging/target-definition/equinox_3.11.1/repository/ - artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1494594530708'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='140'>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.concurrent.source' version='1.1.0.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='25357'/>
+        <property name='download.size' value='25357'/>
+        <property name='download.md5' value='e4b89f7db8391700abffd5212d2a9422'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.preferences.source' version='3.6.1.v20160815-1406'>
+      <properties size='3'>
+        <property name='artifact.size' value='113911'/>
+        <property name='download.size' value='113911'/>
+        <property name='download.md5' value='717ab737e6a66ca7f65807745a8d898f'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.wireadmin' version='1.0.600.v20150715-1528'>
+      <properties size='3'>
+        <property name='artifact.size' value='39067'/>
+        <property name='download.size' value='39067'/>
+        <property name='download.md5' value='6bc91268191ff3c926a38f5a55287527'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.supplement.source' version='1.6.100.v20160504-1419'>
+      <properties size='3'>
+        <property name='artifact.size' value='112537'/>
+        <property name='download.size' value='112537'/>
+        <property name='download.md5' value='bdccf426e94aa20726c9be87b205009b'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.util.source' version='1.0.500.v20130404-1337'>
+      <properties size='3'>
+        <property name='artifact.size' value='75442'/>
+        <property name='download.size' value='75442'/>
+        <property name='download.md5' value='6e43d86e6fecedc7d40d9132f9529168'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.knowhowlab.osgi.monitoradmin' version='1.0.2'>
+      <properties size='3'>
+        <property name='artifact.size' value='42404'/>
+        <property name='download.size' value='42404'/>
+        <property name='download.md5' value='02c63217fab75f87aa89a5b44308e0b2'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.preferences' version='3.6.1.v20160815-1406'>
+      <properties size='3'>
+        <property name='artifact.size' value='133114'/>
+        <property name='download.size' value='133114'/>
+        <property name='download.md5' value='bbb4bf5eefbb988ae03b1afff90f3cdc'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.camel.cloud.factory' version='1.1.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='14807'/>
+        <property name='download.size' value='14807'/>
+        <property name='download.md5' value='a44fc29d0ea1ff8ac36058177af0fa46'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.core.configuration' version='1.1.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='101043'/>
+        <property name='download.size' value='101043'/>
+        <property name='download.md5' value='f377466c0fedfa4d228b85892f24c456'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.transforms.hook.source' version='1.1.0.v20131021-1933'>
+      <properties size='3'>
+        <property name='artifact.size' value='23628'/>
+        <property name='download.size' value='23628'/>
+        <property name='download.md5' value='8c9ca4b9a4db833db791d18c0b8d1469'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.frameworkadmin.equinox' version='1.0.700.v20160102-2223'>
+      <properties size='3'>
+        <property name='artifact.size' value='64629'/>
+        <property name='download.size' value='64629'/>
+        <property name='download.md5' value='4d9ae786d4d176892068085bbe821377'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.metatype' version='1.4.200.v20160324-1850'>
+      <properties size='3'>
+        <property name='artifact.size' value='82068'/>
+        <property name='download.size' value='82068'/>
+        <property name='download.md5' value='54cec74d18988ab688cf7ee59ca00a3d'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.core.certificates' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='12919'/>
+        <property name='download.size' value='12919'/>
+        <property name='download.md5' value='16a82e963c6d0bece8136519e68b97c2'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.server' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='512378'/>
+        <property name='download.size' value='512378'/>
+        <property name='download.md5' value='b8c9c133b71e6077166f9d0c187f6edf'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.registry.source' version='3.6.100.v20160223-2218'>
+      <properties size='3'>
+        <property name='artifact.size' value='178780'/>
+        <property name='download.size' value='178780'/>
+        <property name='download.md5' value='ece4c8bd68c19030152d1f635cd72da3'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.cm.source' version='1.1.200.v20160324-1850'>
+      <properties size='3'>
+        <property name='artifact.size' value='46500'/>
+        <property name='download.size' value='46500'/>
+        <property name='download.md5' value='660bf56bcb4979d6c0985442ba7a3738'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.common.source' version='3.8.0.v20160509-1230'>
+      <properties size='3'>
+        <property name='artifact.size' value='131247'/>
+        <property name='download.size' value='131247'/>
+        <property name='download.md5' value='e76943a8ff88bc45fddc2ec6d6bcd1a8'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.util.source' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='313920'/>
+        <property name='download.size' value='313920'/>
+        <property name='download.md5' value='fba1f375a53e79513cf4f2a29fde2645'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.asset.helper.provider' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='6188'/>
+        <property name='download.size' value='6188'/>
+        <property name='download.md5' value='29fb9137dff31a6d67c6c1a128ae3973'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.bidi' version='1.0.0.v20160307-1318'>
+      <properties size='3'>
+        <property name='artifact.size' value='49755'/>
+        <property name='download.size' value='49755'/>
+        <property name='download.md5' value='653f85f12ed275cde637b92a27f0b679'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.servlet.source' version='1.3.1.v20160808-1329'>
+      <properties size='3'>
+        <property name='artifact.size' value='108971'/>
+        <property name='download.size' value='108971'/>
+        <property name='download.md5' value='46959fdd2c79d013d74e1cd3885a6293'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.jsp.jasper.registry' version='1.0.300.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='11992'/>
+        <property name='download.size' value='11992'/>
+        <property name='download.md5' value='c831b316aa3100faccb3751a2e46d129'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.emulator.net' version='1.0.2'>
+      <properties size='3'>
+        <property name='artifact.size' value='13559'/>
+        <property name='download.size' value='13559'/>
+        <property name='download.md5' value='0225c1e2b9518390fd5a9ed06edb0217'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.useradmin.source' version='1.1.400.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='35315'/>
+        <property name='download.size' value='35315'/>
+        <property name='download.md5' value='a4d72e7f9e237439db01757ecfef5600'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.apache.felix.deploymentadmin' version='0.9.5'>
+      <properties size='3'>
+        <property name='artifact.size' value='99031'/>
+        <property name='download.size' value='99031'/>
+        <property name='download.md5' value='db85559447a56921fa6329857a809596'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.cm' version='1.1.200.v20160324-1850'>
+      <properties size='3'>
+        <property name='artifact.size' value='73964'/>
+        <property name='download.size' value='73964'/>
+        <property name='download.md5' value='f249a2e47607c5c15b33dfcfecf23b2e'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.ds.source' version='1.4.400.v20160226-2036'>
+      <properties size='3'>
+        <property name='artifact.size' value='166271'/>
+        <property name='download.size' value='166271'/>
+        <property name='download.md5' value='558d940ba8c7fb49d40cfd334683a4f5'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.weaving.caching' version='1.0.400.v20140529-1734'>
+      <properties size='3'>
+        <property name='artifact.size' value='23672'/>
+        <property name='download.size' value='23672'/>
+        <property name='download.md5' value='5c1114e240c8536078c65256b6de50fc'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.localization' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='55571'/>
+        <property name='download.size' value='55571'/>
+        <property name='download.md5' value='11c6f2eff8b2c94c6f12e2cffd5c9e2b'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='javax.servlet.jsp' version='2.2.0.v201112011158'>
+      <properties size='3'>
+        <property name='artifact.size' value='111144'/>
+        <property name='download.size' value='111144'/>
+        <property name='download.md5' value='96c4fc48d64cdb105f1cfcb70d58d49c'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.servlet' version='1.3.1.v20160808-1329'>
+      <properties size='3'>
+        <property name='artifact.size' value='185781'/>
+        <property name='download.size' value='185781'/>
+        <property name='download.md5' value='0d769347b83f5e5be3366d9a26abe38a'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.ip' version='1.1.300.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='55996'/>
+        <property name='download.size' value='55996'/>
+        <property name='download.md5' value='bdc7a975eac5713cac54fb6530ad190e'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.transforms.hook' version='1.1.0.v20131021-1933'>
+      <properties size='3'>
+        <property name='artifact.size' value='29200'/>
+        <property name='download.size' value='29200'/>
+        <property name='download.md5' value='fbd4c3dedee64ed08dd53885fdd773a7'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.transforms.xslt.source' version='1.0.300.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='12942'/>
+        <property name='download.size' value='12942'/>
+        <property name='download.md5' value='aaec36bc265783b97ce189897d5a8f28'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.osgi.util' version='3.3.100.v20150423-1351'>
+      <properties size='3'>
+        <property name='artifact.size' value='26098'/>
+        <property name='download.size' value='26098'/>
+        <property name='download.md5' value='656ef38dd86245e75a4c3b1f615de4dd'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.apache.felix.gogo.command.source' version='0.10.0.v201209301215'>
+      <properties size='3'>
+        <property name='artifact.size' value='34902'/>
+        <property name='download.size' value='34902'/>
+        <property name='download.md5' value='68dadbd20a5fc01c599b03bbfdcb2cb8'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.core.runtime' version='3.12.0.v20160606-1342'>
+      <properties size='3'>
+        <property name='artifact.size' value='75728'/>
+        <property name='download.size' value='75728'/>
+        <property name='download.md5' value='33172ac17b2da29fcf5709165e89af59'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.continuation.source' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='22540'/>
+        <property name='download.size' value='22540'/>
+        <property name='download.md5' value='b96b6477046da6c3bbdf9e8ed1fe19c0'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='javax.el.source' version='2.2.0.v201303151357'>
+      <properties size='3'>
+        <property name='artifact.size' value='97804'/>
+        <property name='download.size' value='97804'/>
+        <property name='download.md5' value='17487c84625479f6332c8a06c46374fb'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.app' version='1.3.400.v20150715-1528'>
+      <properties size='3'>
+        <property name='artifact.size' value='87568'/>
+        <property name='download.size' value='87568'/>
+        <property name='download.md5' value='7cdbbccbc1160c8bb913b2582f019380'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.device.source' version='1.0.400.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='28533'/>
+        <property name='download.size' value='28533'/>
+        <property name='download.md5' value='0c7cb87ecfcf63f0dc99831cca0301a7'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.io.source' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='66356'/>
+        <property name='download.size' value='66356'/>
+        <property name='download.md5' value='feca6a8d1e00b0dd24af18f6c09f1cf5'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.core.jobs' version='3.8.0.v20160509-0411'>
+      <properties size='3'>
+        <property name='artifact.size' value='111093'/>
+        <property name='download.size' value='111093'/>
+        <property name='download.md5' value='5ab060254c9e19143879a72e1dd35894'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.concurrent' version='1.1.0.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='25385'/>
+        <property name='download.size' value='25385'/>
+        <property name='download.md5' value='4a3ee6f029aceff2e0c2fb0015e1fb84'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.core.contenttype' version='3.5.100.v20160418-1621'>
+      <properties size='3'>
+        <property name='artifact.size' value='101190'/>
+        <property name='download.size' value='101190'/>
+        <property name='download.md5' value='24089714f0aa995e3890fcbd9a802a92'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.core.variables' version='3.3.0.v20160419-1720'>
+      <properties size='3'>
+        <property name='artifact.size' value='36017'/>
+        <property name='download.size' value='36017'/>
+        <property name='download.md5' value='d6143409f71d1314407e7dc31da1f2ec'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.emulator.clock' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='11520'/>
+        <property name='download.size' value='11520'/>
+        <property name='download.md5' value='9abed88399f45591856e3b59283f5cc4'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.apache.felix.gogo.runtime' version='0.10.0.v201209301036'>
+      <properties size='3'>
+        <property name='artifact.size' value='79641'/>
+        <property name='download.size' value='79641'/>
+        <property name='download.md5' value='942fc321488d77e40fa23cf19613aea2'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.asset.cloudlet.provider' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='23886'/>
+        <property name='download.size' value='23886'/>
+        <property name='download.md5' value='61d55933438e7ddfafb7101897916e5f'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.wire.helper.provider' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='8953'/>
+        <property name='download.size' value='8953'/>
+        <property name='download.md5' value='27106ccfddece6b93e19d59c9d37e45d'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='javax.servlet.source' version='3.1.0.v201410161800'>
+      <properties size='3'>
+        <property name='artifact.size' value='233094'/>
+        <property name='download.size' value='233094'/>
+        <property name='download.md5' value='fb528382e7b46c9a629a23c48ec35389'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.core.deployment' version='1.1.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='80722'/>
+        <property name='download.size' value='80722'/>
+        <property name='download.md5' value='805f1d0eedbdb2bb647b5d3ad5fdbba4'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.weaving.hook.source' version='1.1.200.v20150730-1648'>
+      <properties size='3'>
+        <property name='artifact.size' value='42323'/>
+        <property name='download.size' value='42323'/>
+        <property name='download.md5' value='da7cf2694fbb7332c06e08b9bcec1867'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.wire.component.provider' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='725342'/>
+        <property name='download.size' value='725342'/>
+        <property name='download.md5' value='eb371dd4a053d4d4c9dd124b345247ca'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.emulator.usb' version='1.0.2'>
+      <properties size='3'>
+        <property name='artifact.size' value='9764'/>
+        <property name='download.size' value='9764'/>
+        <property name='download.md5' value='29159aaa13dbd4579e2d0f1d72cc9cbd'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.http' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='159462'/>
+        <property name='download.size' value='159462'/>
+        <property name='download.md5' value='3f50f5deb019f7ebd154d1acb07adef8'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='javax.servlet.jsp.source' version='2.2.0.v201112011158'>
+      <properties size='3'>
+        <property name='artifact.size' value='225504'/>
+        <property name='download.size' value='225504'/>
+        <property name='download.md5' value='2d36e09c2ed4ff5eb60d065caf16dccd'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.apache.felix.gogo.shell' version='0.10.0.v201212101605'>
+      <properties size='3'>
+        <property name='artifact.size' value='60225'/>
+        <property name='download.size' value='60225'/>
+        <property name='download.md5' value='4c503db81a1663e852251670c117ee77'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.asset.provider' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='21382'/>
+        <property name='download.size' value='21382'/>
+        <property name='download.md5' value='c99f12b8b121b2b85908001d85c2841f'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.registry' version='1.1.400.v20150715-1528'>
+      <properties size='3'>
+        <property name='artifact.size' value='46284'/>
+        <property name='download.size' value='46284'/>
+        <property name='download.md5' value='dae7f69a86f9a7c47fc362991eae438f'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='osgi.cmpn' version='4.3.0.201111022214'>
+      <properties size='3'>
+        <property name='artifact.size' value='768335'/>
+        <property name='download.size' value='768335'/>
+        <property name='download.md5' value='a2a2c8f4cd7d1752050917f13e86b1fb'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.weaving.caching.j9' version='1.0.200.v20140529-1734'>
+      <properties size='3'>
+        <property name='artifact.size' value='14065'/>
+        <property name='download.size' value='14065'/>
+        <property name='download.md5' value='3083109d9efaf2145036c4fa8ca4d5c4'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.deployment.agent' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='20178'/>
+        <property name='download.size' value='20178'/>
+        <property name='download.md5' value='c3ddf8b6385d160e7e6530e2e11b9566'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.core.status' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='20121'/>
+        <property name='download.size' value='20121'/>
+        <property name='download.md5' value='e475b1ed8ea09077ade6948bac8edeb1'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.linux.bluetooth' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='50455'/>
+        <property name='download.size' value='50455'/>
+        <property name='download.md5' value='557ed41ef7ffc77bcdffb730f76af957'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.util' version='1.0.500.v20130404-1337'>
+      <properties size='3'>
+        <property name='artifact.size' value='77626'/>
+        <property name='download.size' value='77626'/>
+        <property name='download.md5' value='6a9e3d6c5910f184167e939beb053163'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.console' version='1.1.200.v20150929-1405'>
+      <properties size='3'>
+        <property name='artifact.size' value='120560'/>
+        <property name='download.size' value='120560'/>
+        <property name='download.md5' value='bbe2d89638a1f3a5be4184c6b2d491bd'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.apache.felix.gogo.shell.source' version='0.10.0.v201212101605'>
+      <properties size='3'>
+        <property name='artifact.size' value='37624'/>
+        <property name='download.size' value='37624'/>
+        <property name='download.md5' value='7162edd6a11012ea284ecc82509d707f'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.driver.helper.provider' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='6219'/>
+        <property name='download.size' value='6219'/>
+        <property name='download.md5' value='f2409bfc70530debdf4e0e54bff60b91'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.core.comm' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='14501'/>
+        <property name='download.size' value='14501'/>
+        <property name='download.md5' value='1c80bc8e0c1d252d08e7b2455a494b77'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.servlet' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='126755'/>
+        <property name='download.size' value='126755'/>
+        <property name='download.md5' value='f2cde79b128cf19d7ca7de3c53e70fa1'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.emulator.watchdog' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='16924'/>
+        <property name='download.size' value='16924'/>
+        <property name='download.md5' value='ecd86ccfdadb28164828e53929fc219d'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.api' version='1.2.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='264940'/>
+        <property name='download.size' value='264940'/>
+        <property name='download.md5' value='c09d766c4a44454d96268be20143f493'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.app.source' version='1.3.400.v20150715-1528'>
+      <properties size='3'>
+        <property name='artifact.size' value='77974'/>
+        <property name='download.size' value='77974'/>
+        <property name='download.md5' value='b0514aa5ed209b79b147f8b8e6e0bb18'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.console.source' version='1.1.200.v20150929-1405'>
+      <properties size='3'>
+        <property name='artifact.size' value='85970'/>
+        <property name='download.size' value='85970'/>
+        <property name='download.md5' value='34eda5d28086a8c6ae9af0fb737746f7'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.jetty.source' version='3.3.0.v20160324-1850'>
+      <properties size='3'>
+        <property name='artifact.size' value='23115'/>
+        <property name='download.size' value='23115'/>
+        <property name='download.md5' value='b326f1b2ab37c6d352230b9da63ddc5b'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.apache.felix.dependencymanager' version='3.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='161274'/>
+        <property name='download.size' value='161274'/>
+        <property name='download.md5' value='4d53866e7b70d09b52f7993be5ea2f69'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.apache.felix.gogo.command' version='0.10.0.v201209301215'>
+      <properties size='3'>
+        <property name='artifact.size' value='57040'/>
+        <property name='download.size' value='57040'/>
+        <property name='download.md5' value='548c493fd429ee5dbba2db3a842744f2'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.frameworkadmin.source' version='2.0.300.v20160504-1450'>
+      <properties size='3'>
+        <property name='artifact.size' value='36995'/>
+        <property name='download.size' value='36995'/>
+        <property name='download.md5' value='a93b60acbf0230fa0ad5c5be5f1ee0d6'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.frameworkadmin' version='2.0.300.v20160504-1450'>
+      <properties size='3'>
+        <property name='artifact.size' value='37428'/>
+        <property name='download.size' value='37428'/>
+        <property name='download.md5' value='4f8b8987308edfc6b85ee824237ad152'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.server.source' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='312820'/>
+        <property name='download.size' value='312820'/>
+        <property name='download.md5' value='b6328cd9eb0ab093d7c77db8d12f6af8'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.core.log' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='6451'/>
+        <property name='download.size' value='6451'/>
+        <property name='download.md5' value='877739a57ccecb59f7279fed6157064d'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.common' version='3.8.0.v20160509-1230'>
+      <properties size='3'>
+        <property name='artifact.size' value='120435'/>
+        <property name='download.size' value='120435'/>
+        <property name='download.md5' value='c8715e0b8e2115f78af6c7cd285a5edf'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='javax.el' version='2.2.0.v201303151357'>
+      <properties size='3'>
+        <property name='artifact.size' value='55399'/>
+        <property name='download.size' value='55399'/>
+        <property name='download.md5' value='dbc79afd49407c5598a411cfb3543cf2'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.registry' version='3.6.100.v20160223-2218'>
+      <properties size='3'>
+        <property name='artifact.size' value='186860'/>
+        <property name='download.size' value='186860'/>
+        <property name='download.md5' value='d44c338fee53827a89e74bf1ed5900ad'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.weaving.caching.source' version='1.0.400.v20140529-1734'>
+      <properties size='3'>
+        <property name='artifact.size' value='19579'/>
+        <property name='download.size' value='19579'/>
+        <property name='download.md5' value='66e098df60fd0e8f6d7be3d36c69f8cf'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.metatype.source' version='1.4.200.v20160324-1850'>
+      <properties size='3'>
+        <property name='artifact.size' value='52383'/>
+        <property name='download.size' value='52383'/>
+        <property name='download.md5' value='973223b1e6c6cddecbd35f34beed79ed'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.supplement' version='1.6.100.v20160504-1419'>
+      <properties size='3'>
+        <property name='artifact.size' value='108254'/>
+        <property name='download.size' value='108254'/>
+        <property name='download.md5' value='54563cf8a33ef308d6d52e3b356141df'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.io.source' version='1.1.100.v20150430-1834'>
+      <properties size='3'>
+        <property name='artifact.size' value='40239'/>
+        <property name='download.size' value='40239'/>
+        <property name='download.md5' value='d7f81e1653626beaab0a8d04a026a48e'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.jsp.jasper' version='1.0.500.v20150119-1358'>
+      <properties size='3'>
+        <property name='artifact.size' value='27958'/>
+        <property name='download.size' value='27958'/>
+        <property name='download.md5' value='ee429efd93dac1d2ea4c4d47d753645f'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.jetty' version='3.3.0.v20160324-1850'>
+      <properties size='3'>
+        <property name='artifact.size' value='29927'/>
+        <property name='download.size' value='29927'/>
+        <property name='download.md5' value='a9abfbaee448a0861640bd9aebb316cc'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='javax.servlet' version='3.1.0.v201410161800'>
+      <properties size='3'>
+        <property name='artifact.size' value='105237'/>
+        <property name='download.size' value='105237'/>
+        <property name='download.md5' value='f3472e3186b7f84cdc4996d42c727eab'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.io' version='1.1.100.v20150430-1834'>
+      <properties size='3'>
+        <property name='artifact.size' value='43047'/>
+        <property name='download.size' value='43047'/>
+        <property name='download.md5' value='15b621d13e23e356ae20538d29dbafa5'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.security' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='105193'/>
+        <property name='download.size' value='105193'/>
+        <property name='download.md5' value='d969b155f6da0295e1f486e6cfea0d8b'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.core.net' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='72845'/>
+        <property name='download.size' value='72845'/>
+        <property name='download.md5' value='31bf4b1ebff5901b43b1d062fd53d659'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.apache.felix.gogo.runtime.source' version='0.10.0.v201209301036'>
+      <properties size='3'>
+        <property name='artifact.size' value='59285'/>
+        <property name='download.size' value='59285'/>
+        <property name='download.md5' value='de2d1555813bec9450f221bc877e32a4'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.region.source' version='1.3.1.v20160816-1331'>
+      <properties size='3'>
+        <property name='artifact.size' value='58812'/>
+        <property name='download.size' value='58812'/>
+        <property name='download.md5' value='a3f899ce48cc2f1fa51209d3ca0248b0'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.console.jaas.fragment' version='1.0.0.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='7053'/>
+        <property name='download.size' value='7053'/>
+        <property name='download.md5' value='d23f599b7d3675a375d842d46012a053'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.weaving.hook' version='1.1.200.v20150730-1648'>
+      <properties size='3'>
+        <property name='artifact.size' value='51517'/>
+        <property name='download.size' value='51517'/>
+        <property name='download.md5' value='f396fcb6845f668862de7b291cfd24fb'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.registry.source' version='1.1.400.v20150715-1528'>
+      <properties size='3'>
+        <property name='artifact.size' value='33027'/>
+        <property name='download.size' value='33027'/>
+        <property name='download.md5' value='1c9cdf2f0c8f3313a86c98009e3eea29'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.region' version='1.3.1.v20160816-1331'>
+      <properties size='3'>
+        <property name='artifact.size' value='77624'/>
+        <property name='download.size' value='77624'/>
+        <property name='download.md5' value='a66ff229a164404794f0dc48d10df211'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.servlet.source' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='74337'/>
+        <property name='download.size' value='74337'/>
+        <property name='download.md5' value='8a9ac528cac8599846311847a7f68133'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.camel.xml' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='21637'/>
+        <property name='download.size' value='21637'/>
+        <property name='download.md5' value='98bcab5b2993a339cc92d883e87e95ee'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.device' version='1.0.400.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='33222'/>
+        <property name='download.size' value='33222'/>
+        <property name='download.md5' value='c714e615b7af1fef064ba5de6ac1395b'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.useradmin' version='1.1.400.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='48852'/>
+        <property name='download.size' value='48852'/>
+        <property name='download.md5' value='39c0b571031d243812c60500951a4b98'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.util' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='458691'/>
+        <property name='download.size' value='458691'/>
+        <property name='download.md5' value='db1beed40d97f531140de79111d0de42'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.osgi.services.source' version='3.5.100.v20160504-1419'>
+      <properties size='3'>
+        <property name='artifact.size' value='218038'/>
+        <property name='download.size' value='218038'/>
+        <property name='download.md5' value='88bb9813532e8f5c0a8bd2e94141beae'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.core' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='325039'/>
+        <property name='download.size' value='325039'/>
+        <property name='download.md5' value='0bbe087dc4b95dd99975819425022105'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.osgi.source' version='3.11.1.v20160708-1632'>
+      <properties size='3'>
+        <property name='artifact.size' value='1107374'/>
+        <property name='download.size' value='1107374'/>
+        <property name='download.md5' value='4e4644dd962c362c5b3c882073e5532c'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.jsp.jasper.registry.source' version='1.0.300.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='11425'/>
+        <property name='download.size' value='11425'/>
+        <property name='download.md5' value='87b6a85738392d5a9540e1b08e2775bc'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.emulator.gpio' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='12500'/>
+        <property name='download.size' value='12500'/>
+        <property name='download.md5' value='c0d67cfc044256f88dcc69336b75285a'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.wireadmin.source' version='1.0.600.v20150715-1528'>
+      <properties size='3'>
+        <property name='artifact.size' value='29262'/>
+        <property name='download.size' value='29262'/>
+        <property name='download.md5' value='523197101e6c74533e5323876f9b60f4'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.localization.resources' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='12084'/>
+        <property name='download.size' value='12084'/>
+        <property name='download.md5' value='dfa14b2461c8ff0e38b7c8b21e5a5e32'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.core.expressions' version='3.5.100.v20160418-1621'>
+      <properties size='3'>
+        <property name='artifact.size' value='91504'/>
+        <property name='download.size' value='91504'/>
+        <property name='download.md5' value='10b2312216d591ff3acd54c1d8cf9801'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.jsp.jasper.source' version='1.0.500.v20150119-1358'>
+      <properties size='3'>
+        <property name='artifact.size' value='18647'/>
+        <property name='download.size' value='18647'/>
+        <property name='download.md5' value='331d7b057b3c5a085e4dc61521b334ae'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.ip.source' version='1.1.300.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='44907'/>
+        <property name='download.size' value='44907'/>
+        <property name='download.md5' value='1f736ad6dbd2a01cce0c62f1f116a7a2'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.osgi' version='3.11.1.v20160708-1632'>
+      <properties size='3'>
+        <property name='artifact.size' value='1384479'/>
+        <property name='download.size' value='1384479'/>
+        <property name='download.md5' value='a5f79a52b4180328f1c1c502b30ad6b8'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.emulator.position' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='103113'/>
+        <property name='download.size' value='103113'/>
+        <property name='download.md5' value='111b9bda3eb5569680487febfaaa7b51'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.web2' version='2.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='4645604'/>
+        <property name='download.size' value='4645604'/>
+        <property name='download.md5' value='a635c88bcc29ca4cbec49fa5912a888b'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.ds' version='1.4.400.v20160226-2036'>
+      <properties size='3'>
+        <property name='artifact.size' value='196894'/>
+        <property name='download.size' value='196894'/>
+        <property name='download.md5' value='40c5921872d5d4a243e303989f819531'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.continuation' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='22662'/>
+        <property name='download.size' value='22662'/>
+        <property name='download.md5' value='cccc7373038262b54bb557629442452f'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.event.source' version='1.3.200.v20160324-1850'>
+      <properties size='3'>
+        <property name='artifact.size' value='28904'/>
+        <property name='download.size' value='28904'/>
+        <property name='download.md5' value='0295cfd818b97cd4d9024f95480d6a10'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.osgi.util.source' version='3.3.100.v20150423-1351'>
+      <properties size='3'>
+        <property name='artifact.size' value='33362'/>
+        <property name='download.size' value='33362'/>
+        <property name='download.md5' value='a8550cb469175d708ae9663e3236d329'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.http.source' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='98455'/>
+        <property name='download.size' value='98455'/>
+        <property name='download.md5' value='3ef8c07d784addf81d9c3fe4e1f6d801'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.core.cloud' version='1.1.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='688325'/>
+        <property name='download.size' value='688325'/>
+        <property name='download.md5' value='868969208402869ada42ff2b531ce3e8'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.security.source' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='75511'/>
+        <property name='download.size' value='75511'/>
+        <property name='download.md5' value='bec1840a871e09a4cee4bd7700e5cc2e'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.osgi.services' version='3.5.100.v20160504-1419'>
+      <properties size='3'>
+        <property name='artifact.size' value='111152'/>
+        <property name='download.size' value='111152'/>
+        <property name='download.md5' value='18bf5ad66298473ae4ade83202ee46d7'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.bidi.source' version='1.0.0.v20160307-1318'>
+      <properties size='3'>
+        <property name='artifact.size' value='64809'/>
+        <property name='download.size' value='64809'/>
+        <property name='download.md5' value='afbe7fbfaf1c406a07ef2bbb1faeb825'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.camel' version='1.2.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='83566'/>
+        <property name='download.size' value='83566'/>
+        <property name='download.md5' value='032008f61cf5e5e0f5715a4bfbe70bff'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.core.crypto' version='1.0.100'>
+      <properties size='3'>
+        <property name='artifact.size' value='13891'/>
+        <property name='download.size' value='13891'/>
+        <property name='download.md5' value='cd10cfa5cd4077c40f8899cf80afeaf3'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.event' version='1.3.200.v20160324-1850'>
+      <properties size='3'>
+        <property name='artifact.size' value='34366'/>
+        <property name='download.size' value='34366'/>
+        <property name='download.md5' value='a8e3790a409e914339aa948151234383'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.launcher' version='1.3.200.v20160318-1642'>
+      <properties size='3'>
+        <property name='artifact.size' value='51690'/>
+        <property name='download.size' value='51690'/>
+        <property name='download.md5' value='6c607c7dcd6c2cebab8fae887b180b84'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.util' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='9051'/>
+        <property name='download.size' value='9051'/>
+        <property name='download.md5' value='575cb7ebf2ac089d5c7713ed1731d4af'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.coordinator' version='1.3.200.v20160325-1323'>
+      <properties size='3'>
+        <property name='artifact.size' value='52536'/>
+        <property name='download.size' value='52536'/>
+        <property name='download.md5' value='5541675f7aef138110de76bc4e74c07d'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.frameworkadmin.equinox.source' version='1.0.700.v20160102-2223'>
+      <properties size='3'>
+        <property name='artifact.size' value='48322'/>
+        <property name='download.size' value='48322'/>
+        <property name='download.md5' value='1bb127fd7c20fe5c4d342abd15e841d2'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.weaving.caching.j9.source' version='1.0.200.v20140529-1734'>
+      <properties size='3'>
+        <property name='artifact.size' value='12354'/>
+        <property name='download.size' value='12354'/>
+        <property name='download.md5' value='aec68ff748028144bea4fe1bd0d75b32'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.coordinator.source' version='1.3.200.v20160325-1323'>
+      <properties size='3'>
+        <property name='artifact.size' value='52638'/>
+        <property name='download.size' value='52638'/>
+        <property name='download.md5' value='c1ecfb4e7ff89d49a5539c0bd540f506'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.kura.wire.provider' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='18492'/>
+        <property name='download.size' value='18492'/>
+        <property name='download.md5' value='2d49d63fa712268ab29d47aece4cade7'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.equinox.transforms.xslt' version='1.0.300.v20130327-1442'>
+      <properties size='3'>
+        <property name='artifact.size' value='17708'/>
+        <property name='download.size' value='17708'/>
+        <property name='download.md5' value='6a269471468bbb4f7c55dbba9c8989f0'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.jetty.io' version='9.3.9.v20160517'>
+      <properties size='3'>
+        <property name='artifact.size' value='119392'/>
+        <property name='download.size' value='119392'/>
+        <property name='download.md5' value='253e4e23a24eb1fcfe2872c7eb703131'/>
+      </properties>
+    </artifact>
+  </artifacts>
+</repository>
