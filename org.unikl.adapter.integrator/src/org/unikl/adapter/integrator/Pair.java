@@ -10,11 +10,11 @@ public class Pair<L, R> {
 		this.parameterValue = parameterValue;
 	}
 
-	public L getparameterName() {
+	public L getParameterName() {
 		return parameterName;
 	}
 
-	public R getparameterValue() {
+	public R getParameterValue() {
 		return parameterValue;
 	}
 
@@ -28,7 +28,7 @@ public class Pair<L, R> {
 		if (!(o instanceof Pair))
 			return false;
 		Pair pairo = (Pair) o;
-		return this.parameterName.equals(pairo.getparameterName())
-				&& this.parameterValue.equals(pairo.getparameterValue());
+		return this.parameterName.equals(pairo.getParameterName())
+				&& this.parameterValue.equals(pairo.getParameterValue());
 	}
 }

@@ -7,6 +7,12 @@ import javax.ws.rs.PathParam;
 @Path( "/hello" )
 public class ExampleResource {
 	
+	private VicinityObject vObject;
+	
+	public ExampleResource() {
+		vObject = new VicinityObject("Thermosate");
+	}
+	
 	@GET
 	public String helloWorld() {
 		return "Hello World";
