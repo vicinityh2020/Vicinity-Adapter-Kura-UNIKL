@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Integrator
+Bundle-SymbolicName: org.unikl.adapter.integrator
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: javax.ws.rs;version="2.0.0",
+ org.osgi.framework;version="1.8.0",
+ org.osgi.service.cm;version="1.4.0",
+ org.osgi.service.component;version="1.2.0",
+ org.slf4j;version="1.7.21"
+Service-Component: component.xml,
+ OSGI-INF/component.xml
