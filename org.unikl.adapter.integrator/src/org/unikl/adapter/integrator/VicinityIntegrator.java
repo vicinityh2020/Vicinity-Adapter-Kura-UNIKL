@@ -27,9 +27,11 @@ public class VicinityIntegrator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        Dictionary props = configuration.getProperties();
+		
+		///////////////////
+        Dictionary<String, Object> props = configuration.getProperties();
         if (props == null) {
-            props = new Hashtable();
+            props = new Hashtable<String, Object>();
         }
         props.put("root", "/objects");
         try {
@@ -38,6 +40,7 @@ public class VicinityIntegrator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		///////////////////
 		
 		registration = componentContext.getBundleContext().registerService(ExampleResource.class, new ExampleResource(), null);
 		
