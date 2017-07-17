@@ -25,7 +25,7 @@ public class VicinityObject {
 		// TODO: get oid from Martin
 		_oid = new Pair<String, String>("oid", "abcdefg-0123456789-xyz");
 		
-		if (type == "Thermometer") {
+		if (type == "Thermostate") {
 			// TODO: read from file???
 			_properties = new ArrayList<Property>();
 			_actions = new ArrayList<Action>();

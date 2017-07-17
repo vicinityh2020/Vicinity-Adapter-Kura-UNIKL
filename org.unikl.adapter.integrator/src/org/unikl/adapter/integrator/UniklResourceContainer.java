@@ -10,26 +10,30 @@ import javax.ws.rs.core.Response;
 import org.json.JSONArray;
 
 @Path( "/" )
-public class ExampleResource {
+public class UniklResourceContainer {
 	
 	private VicinityObject vObject;
 	
-	public ExampleResource() {
-		vObject = new VicinityObject("Thermosate");
+	public UniklResourceContainer() {
+		vObject = new VicinityObject("Thermostate");
 	}
 	
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response helloWorld() {
-		vObject = new VicinityObject("Thermosate");
     	String output = vObject.toString();
     	return Response.status(200).entity(output).build();
 	}
 
 	@GET
-	@Path("/{param}")
-	public String getMsg(@PathParam("param") String msg) {
-		String output = "Jersey say : " + msg;
+	@Path("/{oid}/{attr}/{pid}")
+	public String getMsg(@PathParam("oid") String oid, @PathParam("attr") String attr, @PathParam("pid") String pid) {
+		String output = null;
+		if (attr.equals("properties")) {
+			output = "1: oid=" + oid + " pid: " + pid;			
+		} else if (attr.equals("actions")) {
+			output = "2: oid=" + oid + " pid: " + pid;
+		}
 		return output;
 	}
 }

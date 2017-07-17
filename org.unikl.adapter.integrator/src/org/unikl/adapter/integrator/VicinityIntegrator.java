@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 public class VicinityIntegrator {
 	private static final String BUNDLE_ID = "org.unikl.adapter.integrator";
 	private static final Logger s_logger = LoggerFactory.getLogger(VicinityIntegrator.class);
-	private ServiceRegistration<ExampleResource> registration;
+	private ServiceRegistration<UniklResourceContainer> registration;
     ConfigurationAdmin configurationAdmin;
 	
 	protected void activate(ComponentContext componentContext) {
@@ -42,7 +42,7 @@ public class VicinityIntegrator {
 		}
 		///////////////////
 		
-		registration = componentContext.getBundleContext().registerService(ExampleResource.class, new ExampleResource(), null);
+		registration = componentContext.getBundleContext().registerService(UniklResourceContainer.class, new UniklResourceContainer(), null);
 		
 		s_logger.debug("[" + BUNDLE_ID + "]" + " activated!");
 	}
