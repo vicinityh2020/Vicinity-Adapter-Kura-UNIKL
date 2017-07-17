@@ -42,7 +42,7 @@ public class VicinityIntegrator {
 		}
 		///////////////////
 		
-		registration = componentContext.getBundleContext().registerService(UniklResourceContainer.class, new UniklResourceContainer(), null);
+		registration = componentContext.getBundleContext().registerService(UniklResourceContainer.class, UniklResourceContainer.getInstance(), null);
 		
 		s_logger.debug("[" + BUNDLE_ID + "]" + " activated!");
 	}

@@ -3,7 +3,9 @@ package org.unikl.adapter.integrator;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -11,65 +13,117 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.json.JSONArray;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Path( "/" )
+// this is classic singleton
+@Path("/")
 public class UniklResourceContainer {
 
-	private List<VicinityObject> objects;
-	
-	public UniklResourceContainer() {
-		objects = new ArrayList<VicinityObject>();
-		objects.add(new VicinityObject("Thermostate"));
+	private static List<VicinityObject> objects;
+	private static UniklResourceContainer instance = null;
+	private static final Logger s_logger = LoggerFactory.getLogger(UniklResourceContainer.class);
+
+	protected UniklResourceContainer() {
 	}
-	
+
+	public static UniklResourceContainer getInstance() {
+		if (instance == null) {
+			instance = new UniklResourceContainer();
+			objects = new ArrayList<VicinityObject>();
+		}
+		return instance;
+	}
+
+	public VicinityObject getObjectByObjectID(String objectID) {
+		for (VicinityObject obj : objects) {
+			if (objectID.equals(obj.getObjectID()))
+				return obj;
+		}
+
+		return null;
+	}
+
+	public String addUniklResource(String resourceType) {
+		// TODO: add more constructors for different cases
+		VicinityObject vobj = new VicinityObject(resourceType);
+
+		if (vobj == null)
+			s_logger.info("Cannot create VicinityObject!!!");
+
+		objects.add(vobj);
+		return vobj.getObjectID();
+	}
+
+	public void removeUniklResource(String objectID) {
+		// objects.remove(getObjectByObjectID(objectID));
+	}
+
 	private String getAll() {
 		int n = objects.size();
-		
+		s_logger.info("n = " + n);
+
 		StringBuffer sb = new StringBuffer();
 		sb.append("[");
-		
+
 		for (int i = 0; i < n; i++) {
+			s_logger.info(" i = " + i);
+			s_logger.info(objects.get(i).toString());
 			sb.append(objects.get(i).toString());
-			if (i != n-1) // TODO: do something with coma
+			if (i != n - 1) // TODO: do something with coma
 				sb.append(",");
 		}
 		sb.append("]");
-    	return sb.toString();	
-	}
-	
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response all() {
-    	return Response.status(200).entity(getAll()).build();
+		/*
+		 * s_logger.info("=========================="); s_logger.info(sb.toString());
+		 * s_logger.info("--------------------------");
+		 */
+		return sb.toString();
 	}
 
 	@GET
-	@Path("/{oid}/{attr}/{paid}") // haha, my paid slut request
-	public Response getMsg(@PathParam("oid") String oid, @PathParam("attr") String attr, @PathParam("paid") String paid) {
-		if (!(attr.equals("properties") || attr.equals("actions"))) {
-	    	return Response.status(404).build();
-		}
-		
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response all() {
+		return Response.status(200).entity(getAll()).build();
+	}
+
+	@GET
+	@Path("/{oid}/properties/{pid}")
+	public Response getMsg(@PathParam("oid") String oid, @PathParam("pid") String pid) {
+		// if (!(attr.equals("properties")/* || attr.equals("actions")*/)) {
+		// return Response.status(404).build();
+		// }
+
 		// TODO: man....that sucks so much!!!
 		// I think Property and Action should implement the same interface
 		for (VicinityObject obj : objects) {
 			if (oid.equals(obj.getObjectID())) {
-				if (attr.equals("properties")) {
-					for (VicinityObject.Property prop : obj.getProperties()) {
-						if (paid.equals(prop.getPropertyID())) {
-							return Response.status(200).entity(prop.getPropertyValueStr()).build();
-						}
-					}
-				} else if (attr.equals("actions")) {
-					for (VicinityObject.Action act : obj.getActions()) {
-						if (paid.equals(act.getActionID())) {
-					    	return Response.status(404).build();
-//							return Response.status(200).entity(act.getPropertyValueStr()).build();							
-						}						
+				for (VicinityObject.Property prop : obj.getProperties()) {
+					if (pid.equals(prop.getPropertyID())) {
+						return Response.status(200).entity(prop.getPropertyValueStr(pid)).build();
 					}
 				}
 			}
 		}
-    	return Response.status(404).build();
+		return Response.status(404).build();
 	}
+
+	@POST
+    @Consumes(MediaType.APPLICATION_JSON)
+	@Path("/{oid}/actions/{aid}") // haha, my paid slut request
+	public Response SetMsg(@PathParam("oid") String oid, @PathParam("aid") String aid) {
+		// TODO: man....that sucks so much!!!
+		// I think Property and Action should implement the same interface
+		for (VicinityObject obj : objects) {
+			if (oid.equals(obj.getObjectID())) {
+				for (VicinityObject.Property prop : obj.getProperties()) {
+					if (aid.equals(prop.getPropertyID())) {
+						return Response.status(200).entity(prop.getPropertyValueStr(aid)).build();
+					}
+				}
+			}
+		}
+		return Response.status(404).build();
+	}
+
 }
