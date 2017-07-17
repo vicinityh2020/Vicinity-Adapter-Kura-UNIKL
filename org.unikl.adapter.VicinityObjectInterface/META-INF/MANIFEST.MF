@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: VicinityObjectInterface
+Bundle-SymbolicName: org.unikl.adapter.VicinityObjectInterface
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: org.unikl.adapter.VicinityObjectInterface
