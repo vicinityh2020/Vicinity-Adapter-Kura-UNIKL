@@ -1,6 +1,8 @@
 package org.unikl.adapter.integrator;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +37,19 @@ public class VicinityObject {
 		}
 	}
 	
-	private String getProperties() {
+	public String getObjectID() {
+		return _oid.getParameterValue();
+	}
+	
+	public List<Property> getProperties () {
+		return _properties;
+	}
+	
+	public List<Action> getActions () {
+		return _actions;
+	}
+
+	public String getPropertiesStr() {
 		int n = _properties.size();
 		
 		StringBuffer sb = new StringBuffer();
@@ -50,7 +64,7 @@ public class VicinityObject {
 		return new String(sb.toString());			
 	}
 	
-	private String getActions() {
+	public String getActionsStr() {
 		int n = _actions.size();
 		
 		StringBuffer sb = new StringBuffer();
@@ -70,8 +84,8 @@ public class VicinityObject {
 		return new StringBuffer("{")
 				.append("\"").append(_type.getParameterName()).append("\":\"").append(_type.getParameterValue()).append("\"").append(",")
 				.append("\"").append(_oid.getParameterName()).append("\":\"").append(_oid.getParameterValue()).append("\"").append(",")
-					.append("\"").append(PROPERTIES).append("\":").append(getProperties()).append(",")
-					.append("\"").append(ACTIONS).append("\":").append(getActions())
+					.append("\"").append(PROPERTIES).append("\":").append(getPropertiesStr()).append(",")
+					.append("\"").append(ACTIONS).append("\":").append(getActionsStr())
 				.append("}").toString();
 	}
 	
@@ -88,7 +102,9 @@ public class VicinityObject {
 
 		private List<Link> _pReadLinks = new ArrayList<Link>();
 		private List<Link> _pWriteLinks = new ArrayList<Link>();
-		
+
+		String formatter = "yyyy-MM-dd'T'HH:mm:ssz";
+	
 		public Property (/* TODO: Add type here */) {
 			// TODO: generate automatically
 			_pid = new Pair<String, String>("pid", "temp1"); // TODO
@@ -102,7 +118,7 @@ public class VicinityObject {
 		}
 		
 		// TODO: merge getReadLinks and getWriteLinks
-		private String getReadLinks() {
+		public String getReadLinks() {
 			int n = _pReadLinks.size();
 			
 			StringBuffer sb = new StringBuffer();
@@ -117,7 +133,7 @@ public class VicinityObject {
 			return sb.toString();			
 		}
 
-		private String getWriteLinks() {
+		public String getWriteLinks() {
 			int n = _pWriteLinks.size();
 			
 			StringBuffer sb = new StringBuffer();
@@ -131,6 +147,22 @@ public class VicinityObject {
 			sb.append("]");
 			return sb.toString();						
 		}
+		
+		public String getPropertyID() {
+			return _pid.getParameterValue();
+		}
+
+		// TODO: Here connect to sensors
+		public Double getPropertyValue() {
+			return 26.5;
+		}
+
+		public String getPropertyValueStr() {
+			return new StringBuffer("{")
+					.append("\"value\":").append(String.valueOf(getPropertyValue())).append(",")
+					.append("\"timestamp\":\"").append(new SimpleDateFormat(formatter).format(new Date())).append("\"")
+					.append("}").toString();		
+			}
 
 		@Override
 		public String toString() {
@@ -173,7 +205,7 @@ public class VicinityObject {
 		}
 		
 		// TODO: merge getReadLinks and getWriteLinks
-		private String getReadLinks() {
+		public String getReadLinks() {
 			int n = _aReadLinks.size();
 			
 			StringBuffer sb = new StringBuffer();
@@ -188,7 +220,7 @@ public class VicinityObject {
 			return sb.toString();			
 		}
 
-		private String getWriteLinks() {
+		public String getWriteLinks() {
 			int n = _aWriteLinks.size();
 			
 			StringBuffer sb = new StringBuffer();
@@ -201,6 +233,10 @@ public class VicinityObject {
 			}
 			sb.append("]");
 			return sb.toString();						
+		}
+
+		public String getActionID() {
+			return _aid.getParameterValue();
 		}
 
 		@Override

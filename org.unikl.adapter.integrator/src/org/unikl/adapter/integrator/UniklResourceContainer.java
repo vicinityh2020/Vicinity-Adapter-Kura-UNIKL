@@ -1,5 +1,8 @@
 package org.unikl.adapter.integrator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -11,29 +14,62 @@ import org.json.JSONArray;
 
 @Path( "/" )
 public class UniklResourceContainer {
-	
-	private VicinityObject vObject;
+
+	private List<VicinityObject> objects;
 	
 	public UniklResourceContainer() {
-		vObject = new VicinityObject("Thermostate");
+		objects = new ArrayList<VicinityObject>();
+		objects.add(new VicinityObject("Thermostate"));
+	}
+	
+	private String getAll() {
+		int n = objects.size();
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		
+		for (int i = 0; i < n; i++) {
+			sb.append(objects.get(i).toString());
+			if (i != n-1) // TODO: do something with coma
+				sb.append(",");
+		}
+		sb.append("]");
+    	return sb.toString();	
 	}
 	
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response helloWorld() {
-    	String output = vObject.toString();
-    	return Response.status(200).entity(output).build();
+    public Response all() {
+    	return Response.status(200).entity(getAll()).build();
 	}
 
 	@GET
-	@Path("/{oid}/{attr}/{pid}")
-	public String getMsg(@PathParam("oid") String oid, @PathParam("attr") String attr, @PathParam("pid") String pid) {
-		String output = null;
-		if (attr.equals("properties")) {
-			output = "1: oid=" + oid + " pid: " + pid;			
-		} else if (attr.equals("actions")) {
-			output = "2: oid=" + oid + " pid: " + pid;
+	@Path("/{oid}/{attr}/{paid}") // haha, my paid slut request
+	public Response getMsg(@PathParam("oid") String oid, @PathParam("attr") String attr, @PathParam("paid") String paid) {
+		if (!(attr.equals("properties") || attr.equals("actions"))) {
+	    	return Response.status(404).build();
 		}
-		return output;
+		
+		// TODO: man....that sucks so much!!!
+		// I think Property and Action should implement the same interface
+		for (VicinityObject obj : objects) {
+			if (oid.equals(obj.getObjectID())) {
+				if (attr.equals("properties")) {
+					for (VicinityObject.Property prop : obj.getProperties()) {
+						if (paid.equals(prop.getPropertyID())) {
+							return Response.status(200).entity(prop.getPropertyValueStr()).build();
+						}
+					}
+				} else if (attr.equals("actions")) {
+					for (VicinityObject.Action act : obj.getActions()) {
+						if (paid.equals(act.getActionID())) {
+					    	return Response.status(404).build();
+//							return Response.status(200).entity(act.getPropertyValueStr()).build();							
+						}						
+					}
+				}
+			}
+		}
+    	return Response.status(404).build();
 	}
 }
