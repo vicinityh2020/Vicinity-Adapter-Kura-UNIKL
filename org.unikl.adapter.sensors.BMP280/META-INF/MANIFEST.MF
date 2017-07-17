@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Raspberrypi
-Bundle-SymbolicName: org.unikl.adapter.sensors.raspberrypi;singleton:=true
+Bundle-SymbolicName: org.unikl.adapter.sensors.BMP280;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

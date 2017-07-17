@@ -1,4 +1,4 @@
-package org.unikl.adapter.sensors.raspberrypi;
+package org.unikl.adapter.sensors.BMP280;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -17,8 +17,8 @@ import net.pateras.iot.BMP280.BMP280.Pressure_Sample_Resolution;
 import net.pateras.iot.BMP280.BMP280.Standby_Time;
 import net.pateras.iot.BMP280.BMP280.Temperature_Sample_Resolution;
 
-public class RaspberryPiSensorService implements SensorService{
-	private static final Logger s_logger = LoggerFactory.getLogger(RaspberryPiSensorService.class);
+public class BMP280Service implements SensorService {
+	private static final Logger s_logger = LoggerFactory.getLogger(BMP280Service.class);
 
 	// TODO: separate file with global definitions?
 	private static final String PPOJECT_ID = "VICINITY"; 
@@ -65,7 +65,7 @@ public class RaspberryPiSensorService implements SensorService{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			s_logger.info("Temperature in Celsius : {}", results[BMP280.TEMP_VAL_C]);
+			//s_logger.info("Temperature in Celsius : {}", results[BMP280.TEMP_VAL_C]);
 			return results[BMP280.TEMP_VAL_C];
 		} else if ("pressure".equals(sensorName)) {
 			double[] results = null;
@@ -75,7 +75,7 @@ public class RaspberryPiSensorService implements SensorService{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			s_logger.info("Pressure : {}", results[BMP280.PRES_VAL]);
+			//s_logger.info("Pressure : {}", results[BMP280.PRES_VAL]);
 			return results[BMP280.PRES_VAL];
 		} else
 			throw new SensorService.NoSuchSensorOrActuatorException();
