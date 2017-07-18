@@ -1,7 +1,12 @@
 package org.unikl.adapter.integrator;
 
+import java.lang.annotation.Annotation;
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -9,8 +14,21 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.CacheControl;
+import javax.ws.rs.core.EntityTag;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Variant;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -88,19 +106,17 @@ public class UniklResourceContainer {
 	}
 
 	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{oid}/properties/{pid}")
 	public Response getMsg(@PathParam("oid") String oid, @PathParam("pid") String pid) {
-		// if (!(attr.equals("properties")/* || attr.equals("actions")*/)) {
-		// return Response.status(404).build();
-		// }
-
 		// TODO: man....that sucks so much!!!
 		// I think Property and Action should implement the same interface
 		for (VicinityObject obj : objects) {
 			if (oid.equals(obj.getObjectID())) {
 				for (VicinityObject.Property prop : obj.getProperties()) {
 					if (pid.equals(prop.getPropertyID())) {
-						return Response.status(200).entity(prop.getPropertyValueStr(pid)).build();
+						return Response.status(200).header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
+								.entity(prop.getPropertyValueStr(pid)).build();
 					}
 				}
 			}
@@ -108,21 +124,44 @@ public class UniklResourceContainer {
 		return Response.status(404).build();
 	}
 
-	@POST
-    @Consumes(MediaType.APPLICATION_JSON)
-	@Path("/{oid}/actions/{aid}") // haha, my paid slut request
-	public Response SetMsg(@PathParam("oid") String oid, @PathParam("aid") String aid) {
+	/*
+	@XmlRootElement
+	public class MyJaxBean {
+	    @XmlElement public String param1;
+	    @XmlElement public String param2;
+	}
+	*/
+	
+	@XmlAccessorType(XmlAccessType.FIELD)
+	public class C
+	{
+	  public String param1;
+	  public String param2;
+	}
+
+	@POST @Consumes("application/json")
+    @Produces({MediaType.TEXT_PLAIN})
+//	@Path("/{oid}/actions/{aid}")
+	@Path("/bloooo")
+	public Response getMsg(final C input/*, @PathParam("oid") String oid, @PathParam("aid") String aid*/) {
 		// TODO: man....that sucks so much!!!
 		// I think Property and Action should implement the same interface
+		boolean result = false;
+		
+		s_logger.info("----------- POST parameter : " + input.param1 + " value : " + input.param2);
+		/*
 		for (VicinityObject obj : objects) {
 			if (oid.equals(obj.getObjectID())) {
-				for (VicinityObject.Property prop : obj.getProperties()) {
-					if (aid.equals(prop.getPropertyID())) {
-						return Response.status(200).entity(prop.getPropertyValueStr(aid)).build();
+				for (VicinityObject.Action act : obj.getActions()) {
+					if (aid.equals(act.getActionID())) {
+						result = act.setAction(input.param1, input.param2);
+						return Response.status(200).entity("{\"parameter\":\"OK\"}").build();
+						//return Response.status(200).entity(prop.getPropertyValueStr(aid)).build();
 					}
 				}
 			}
 		}
+		*/
 		return Response.status(404).build();
 	}
 

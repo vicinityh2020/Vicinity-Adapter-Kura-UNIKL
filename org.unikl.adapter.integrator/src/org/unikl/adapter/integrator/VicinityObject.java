@@ -58,6 +58,11 @@ public class VicinityObject {
 			s_logger.info("++++++++++++++ Setting Object instance");
 			prop.setVicinityObjectInstance(vobjInstance);
 		}
+		
+		for (Action act: _actions) {
+			s_logger.info("++++++++++++++ Setting Object instance");
+			act.setVicinityObjectInstance(vobjInstance);
+		}
 	}
 
 	public String getObjectID() {
@@ -141,11 +146,9 @@ public class VicinityObject {
 
 			_output = new Data(units, datatype);
 
-			_pReadLinks.add(new Link("properties/" + _pid.getParameterValue(), "application/json"));
-			_pWriteLinks.add(new Link("properties/" + _pid.getParameterValue(), "application/json"));
+			_pReadLinks.add(new Link("/objects/" + oid + "/properties/" + _pid.getParameterValue(), "application/json"));
+			_pWriteLinks.add(new Link("/objects/" + oid + "/properties/" + _pid.getParameterValue(), "application/json"));
 		}
-
-
 		
 		public void setVicinityObjectInstance(VicinityObjectInterface vobjInstance) {
 			this._vobjInstance = vobjInstance;
@@ -188,7 +191,6 @@ public class VicinityObject {
 
 		// TODO: Here connect to sensors
 		public String getPropertyValue(String propertyName) {
-			s_logger.info("9999999999999 getPropertyValue #" + propertyName + "#");
 			return _vobjInstance.getProperty(_oid, propertyName);
 		}
 
@@ -240,8 +242,17 @@ public class VicinityObject {
 			_affects = new Pair<String, String>(AFFECTS, affects); // TODO
 
 			_input = new Data(units, datatype); // TODO
-			_aReadLinks.add(new Link("actions/" + _aid.getParameterValue(), "application/json"));
-			_aWriteLinks.add(new Link("actions/" + _aid.getParameterValue(), "application/json"));
+			_aReadLinks.add(new Link("/objects/" + oid + "/actions/" + _aid.getParameterValue(), "application/json"));
+			_aWriteLinks.add(new Link("/objects/" + oid + "/actions/" + _aid.getParameterValue(), "application/json"));
+		}
+
+		public void setVicinityObjectInstance(VicinityObjectInterface vobjInstance) {
+			this._vobjInstance = vobjInstance;
+		}
+
+		// hmmm.....
+		public boolean setAction(String paramName, String value) {
+			return _vobjInstance.setProperty(_oid, paramName, value);
 		}
 
 		// TODO: merge getReadLinks and getWriteLinks
