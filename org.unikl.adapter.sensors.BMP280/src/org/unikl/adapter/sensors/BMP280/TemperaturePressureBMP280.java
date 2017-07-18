@@ -5,9 +5,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.unikl.adapter.sensors.SensorChangedListener;
-import org.unikl.adapter.sensors.SensorService;
-
+import org.unikl.adapter.VicinityObjectInterface.VicinityObjectInterface;
+import org.unikl.adapter.integrator.UniklResourceContainer;
 import com.pi4j.io.i2c.I2CBus;
 
 import net.pateras.iot.BMP280.BMP280;
@@ -17,18 +16,18 @@ import net.pateras.iot.BMP280.BMP280.Pressure_Sample_Resolution;
 import net.pateras.iot.BMP280.BMP280.Standby_Time;
 import net.pateras.iot.BMP280.BMP280.Temperature_Sample_Resolution;
 
-public class BMP280Service implements SensorService {
-	private static final Logger s_logger = LoggerFactory.getLogger(BMP280Service.class);
+public class TemperaturePressureBMP280 implements VicinityObjectInterface {
+	private static final Logger s_logger = LoggerFactory.getLogger(TemperaturePressureBMP280.class);
 
 	// TODO: separate file with global definitions?
-	private static final String PPOJECT_ID = "VICINITY"; 
+	private static final String SENSOR_NAME = "BMP280"; 
 	private static final String BUNDLE_ID = "org.unikl.adapter.sensors.raspberrypi";
-	
-	private List<SensorChangedListener> _listeners = new CopyOnWriteArrayList<SensorChangedListener>();
 	
 	private static BMP280 _bmp280;
 	double _temperature;
 	double _pressure;
+	
+	private String oid;
 
 	protected void activate() throws Exception {
 		_bmp280 = new BMP280(BMP280.Protocol.I2C, BMP280.ADDR_SDO_2_VDDIO, I2CBus.BUS_1);
@@ -48,16 +47,23 @@ public class BMP280Service implements SensorService {
 		_bmp280.setIIRFilter(IIRFilter.SIXTEEN, true);
 		_bmp280.setStandbyTime(Standby_Time.MS_POINT_5, true);
 
-		s_logger.info("[" + PPOJECT_ID + "] " + BUNDLE_ID + " bundle is loaded");
+		oid = UniklResourceContainer.getInstance().addUniklResource("Thermostate");
+    	UniklResourceContainer.getInstance().getObjectByObjectID(oid).setVicinityObjectInstance(this);
+		/*
+             	light.setName(UniklResourceContainer.getInstance().addUniklResource("PHLightBulb"));
+                s_logger.info("[" + BUNDLE_ID + "] === OOO  " + light.getName());
+                setInstance(light);
+		 */
+		s_logger.info("[" + BUNDLE_ID + "] bundle is loaded");
 	}
 	
 	protected void deactivate() {
-		s_logger.info("[" + PPOJECT_ID + "] " + BUNDLE_ID + " bundle is unloaded");
+		UniklResourceContainer.getInstance().removeUniklResource(oid);
+		s_logger.info("[" + BUNDLE_ID + "]  bundle is unloaded");
 	}
 	
-	@Override
-	public Object getSensorValue(String sensorName) throws NoSuchSensorOrActuatorException {
-		if ("temperature".equals(sensorName)) {
+	public double getSensorValue(String oid, String sensorName) throws Exception {
+		if ("temp1".equals(sensorName)) {
 			double[] results = null;
 			try {
 				results = _bmp280.sampleDeviceReads();
@@ -77,26 +83,32 @@ public class BMP280Service implements SensorService {
 			}
 			//s_logger.info("Pressure : {}", results[BMP280.PRES_VAL]);
 			return results[BMP280.PRES_VAL];
-		} else
-			throw new SensorService.NoSuchSensorOrActuatorException();
+		} else {
+			throw new Exception(SENSOR_NAME + " does not support \"" + sensorName + "\"" );
+		}
 	}
 
 	@Override
-	public void setActuatorValue(String actuatorName, Object value) throws NoSuchSensorOrActuatorException {
+	public VicinityObjectInterface getInstance() {
 		// TODO Auto-generated method stub
-	}
-	
-	public void addSensorChangedListener(SensorChangedListener listener) {
-		_listeners.add(listener);
+		return this;
 	}
 
-	public void removeSensorChangedListener(SensorChangedListener listener) {
-		_listeners.remove(listener);
+	@Override
+	public String getProperty(String oid, String propertyName) {
+		try {
+			return String.valueOf(getSensorValue(oid, propertyName));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// TODO Auto-generated method stub
+		return "";
 	}
 
-	private void notifyListeners(String sensorName, Object newValue) {
-		for (SensorChangedListener listener : _listeners) {
-			listener.sensorChanged(sensorName, newValue);
-		}		
+	@Override
+	public boolean setProperty(String oid, String propertyName, String value) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" name="org.unikl.adapter.sensors.raspberrypi">
-   <implementation class="org.unikl.adapter.sensors.raspberrypi.RaspberryPiSensorService"/>
-   <service>
-      <provide interface="org.unikl.adapter.sensors.SensorService"/>
-   </service>
-   <reference bind="addSensorChangedListener" cardinality="0..n" interface="org.unikl.adapter.sensors.SensorChangedListener" name="SensorChangedListener" policy="dynamic" unbind="removeSensorChangedListener"/>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" name="org.unikl.adapter.sensors.BMP280">
+   <implementation class="org.unikl.adapter.sensors.BMP280.TemperaturePressureBMP280"/>
 </scr:component>
