@@ -9,5 +9,9 @@ public class HelloWorldProject {
 	public void activate(){
 		s_logger.info("Hello Git!!!");
 	}
+	
+	public void deactivate(){
+		s_logger.info("Bye Git!!!");
+	}
 
 }
