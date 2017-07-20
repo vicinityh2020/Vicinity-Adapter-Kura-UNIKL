@@ -140,13 +140,13 @@ public class UniklResourceContainer {
 		// TODO: man....that sucks so much!!!
 		// I think Property and Action should implement the same interface
 		
-		s_logger.info("----------- POST parameter : " + input.property + " value : " + input.value);
+		s_logger.info("----------- POST parameter : " + pid + " value : " + input.value);
 
 		for (VicinityObject obj : objects) {
 			if (oid.equals(obj.getObjectID())) {
 				for (VicinityObject.Property prop : obj.getProperties()) {
 					if (pid.equals(prop.getPropertyID())) {
-						prop.setPropertyValue(input.property, input.value);
+						prop.setPropertyValue(pid, input.value);
 						return Response.status(200).entity("{\"status\":\"success\"}").build();
 						//return Response.status(200).entity(prop.getPropertyValueStr(aid)).build();
 					}

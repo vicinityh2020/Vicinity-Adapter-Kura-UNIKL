@@ -18,10 +18,13 @@ import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.hue.sdk.PHSDKListener;
 import com.philips.lighting.hue.sdk.utilities.PHUtilities;
 import com.philips.lighting.model.PHBridge;
-import com.philips.lighting.model.PHBridgeResourcesCache;
 import com.philips.lighting.model.PHHueParsingError;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
+
+// generally, this sucks, we cannot differ between which lightbulb connected to which bridge
+// we actually do not know anything about bridges!
+// ... should I try to do something with this?...
 
 public class PhilipsHue implements VicinityObjectInterface {
 	public static final String BUNDLE_ID = "org.unikl.adapter.philipshue";
@@ -30,6 +33,13 @@ public class PhilipsHue implements VicinityObjectInterface {
 	
     private PHHueSDK phHueSDK;
     PHBridge bridge; // TODO: support more than one bridge later
+    
+    // PhilipsSDK's brightness varies between 0 and 254
+    // However, for VICINITY we should return value between 0 and 100 (percentage)
+    private static final double BRIGHTNESS_CONVERT_COEFFICIENT = 2.54;
+    // dynamic consumption value, valid only for model Hue A60
+    // and light bulbs which have nominal consumption 8.5W 
+    private static final double CONSUMPTION_COEFFICIENT = 8.5;
     
 	protected void activate(ComponentContext componentContext) {
 		s_logger.info("[" + BUNDLE_ID + "]" + " activating...");
@@ -52,6 +62,8 @@ public class PhilipsHue implements VicinityObjectInterface {
 		s_logger.info("PhilipsHue bundle... unloaded");		
 	}
 	
+	// TODO: actually noone needs this crap, but I would like to
+	// make an easter egg out of this later 
     public void randomizeLights(final PHBridge bridge) {
         for (final PHLight light : allLights) {
         	Timer timer = new Timer();
@@ -121,6 +133,7 @@ public class PhilipsHue implements VicinityObjectInterface {
 
     	@Override
     	public void onCacheUpdated(List<Integer> arg0, PHBridge arg1) {
+    		// TODO: Yeah, I am a lazy bitch. I will implement this, but when I have time, I swear!
     	}
 
     	@Override
@@ -152,29 +165,27 @@ public class PhilipsHue implements VicinityObjectInterface {
 
 	@Override
 	public String getProperty(String oid, String propertyName) {
-		s_logger.info("[" + BUNDLE_ID + "]=" + oid + "=" + propertyName + "=");
+		s_logger.info("[" + BUNDLE_ID + "] getting property " + propertyName + " for oid = " + oid);
 
         for (PHLight light : allLights) {
-    		s_logger.info("[" + BUNDLE_ID + "]=" + oid + "=" + light.getName() + "=");
-
         	if (!oid.equals(light.getName()))
         		continue;
         
-    		s_logger.info("[" + BUNDLE_ID + "] FOUND " + propertyName);
-
         	PHLightState lightState = light.getLastKnownLightState();
-    		
-        	if (propertyName.equals("hue")) {
-        		
-        		s_logger.info("[" + BUNDLE_ID + "] hue " + lightState.getHue());
-        		return String.valueOf(lightState.getHue());
-        		
-    		} else if (propertyName.equals("brightness")) {
+        	if (propertyName.equals("brightness")) {
     			
-        		s_logger.info("[" + BUNDLE_ID + "] brightness " + lightState.getBrightness());
-    			return String.valueOf(lightState.getBrightness());
+        		int value = (int) (lightState.getBrightness() / BRIGHTNESS_CONVERT_COEFFICIENT);
+    			return String.valueOf(value);
     			
-    		} else if (propertyName.equals("color")) {
+    		}
+        	/* This could be nice functionality, but..."what hue exactly means?! we do not need this crap!! so fuck you!!!"
+
+       	 	else if (propertyName.equals("hue")) {
+       			s_logger.info("[" + BUNDLE_ID + "] hue " + lightState.getHue());
+       			return String.valueOf(lightState.getHue());
+       		}
+    		*/
+        	else if (propertyName.equals("color")) {
     			
     	    	StringBuffer result = new StringBuffer("");
 
@@ -188,41 +199,47 @@ public class PhilipsHue implements VicinityObjectInterface {
             	result.append(String.valueOf(Integer.toHexString(r)));
             	result.append(String.valueOf(Integer.toHexString(g)));
             	result.append(String.valueOf(Integer.toHexString(b)));
-        		s_logger.info("[" + BUNDLE_ID + "] color " + Integer.toHexString(r) + Integer.toHexString(g) + Integer.toHexString(b));
             	return result.toString();
-            	
-    		}
 
-        	return String.valueOf(lightState.getHue());
+        	} else if (propertyName.equals("consumption")) { // TODO: generate appropriate output for readonly properties?
+        		int value = (int) (CONSUMPTION_COEFFICIENT * ((lightState.getBrightness() / BRIGHTNESS_CONVERT_COEFFICIENT) / 100));
+    			return String.valueOf(value);
+    		}
         }
-        return "000000";
+        return "";
 	}
 
 	@Override
 	public boolean setProperty(String oid, String propertyName, String value) {
+		s_logger.info("[" + BUNDLE_ID + "] setting property " + propertyName + " to value "+ value + " for oid = " + oid);
+
         for (PHLight light : allLights) {
         	if (!oid.equals(light.getName()))
         		continue;
         
-    		s_logger.info("[" + BUNDLE_ID + "] FOUND " + propertyName);
-
     		PHLightState lightState = new PHLightState();
 		
-        	if (propertyName.equals("hue")) {
+    		if (propertyName.equals("brightness")) {
+    			
+    			// no idea how precise this shit is...
+        		int digValue = (int) (Integer.parseInt(value) * BRIGHTNESS_CONVERT_COEFFICIENT);
+    			lightState.setBrightness(digValue);
+    			light.setLastKnownLightState(lightState);
+    			bridge.updateLightState(light, lightState);
+    			return true;
+	
+    		} 
+    		/* look my comment on this in comment for getProperty() method
+    		else if (propertyName.equals("hue")) {
         		
         		int digValue = Integer.parseInt(value);
     			lightState.setHue(digValue);
     			bridge.updateLightState(light, lightState);
     			return true;
       		
-    		} else if (propertyName.equals("brightness")) {
-    			
-        		int digValue = Integer.parseInt(value);
-    			lightState.setBrightness(digValue);
-    			bridge.updateLightState(light, lightState);
-    			return true;
-    			
-    		} else if (propertyName.equals("color")) {
+    		} 
+    		*/
+    		else if (propertyName.equals("color")) {
     			
     			if (value.length() != 6)
     				return false;
@@ -231,6 +248,7 @@ public class PhilipsHue implements VicinityObjectInterface {
                 lightState.setX(xy[0]); 
                 lightState.setY(xy[1]); 
                 bridge.updateLightState(light, lightState);
+    			light.setLastKnownLightState(lightState);
 
     			return true;
     		}
