@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -123,14 +124,6 @@ public class UniklResourceContainer {
 		}
 		return Response.status(404).build();
 	}
-
-	/*
-	@XmlRootElement
-	public class MyJaxBean {
-	    @XmlElement public String param1;
-	    @XmlElement public String param2;
-	}
-	*/
 	
 	@XmlAccessorType(XmlAccessType.FIELD)
 	public class C
@@ -139,30 +132,30 @@ public class UniklResourceContainer {
 	  public String param2;
 	}
 
-	@POST @Consumes("application/json")
-    @Produces({MediaType.TEXT_PLAIN})
-//	@Path("/{oid}/actions/{aid}")
-	@Path("/bloooo")
-	public Response getMsg(final C input/*, @PathParam("oid") String oid, @PathParam("aid") String aid*/) {
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/{oid}/properties/{pid}")
+	public Response getMsg(PropPojo input, @PathParam("oid") String oid, @PathParam("pid") String pid) {
 		// TODO: man....that sucks so much!!!
 		// I think Property and Action should implement the same interface
-		boolean result = false;
 		
-		s_logger.info("----------- POST parameter : " + input.param1 + " value : " + input.param2);
-		/*
+		s_logger.info("----------- POST parameter : " + input.property + " value : " + input.value);
+
 		for (VicinityObject obj : objects) {
 			if (oid.equals(obj.getObjectID())) {
-				for (VicinityObject.Action act : obj.getActions()) {
-					if (aid.equals(act.getActionID())) {
-						result = act.setAction(input.param1, input.param2);
-						return Response.status(200).entity("{\"parameter\":\"OK\"}").build();
+				for (VicinityObject.Property prop : obj.getProperties()) {
+					if (pid.equals(prop.getPropertyID())) {
+						prop.setPropertyValue(input.property, input.value);
+						return Response.status(200).entity("{\"status\":\"success\"}").build();
 						//return Response.status(200).entity(prop.getPropertyValueStr(aid)).build();
 					}
 				}
 			}
 		}
-		*/
-		return Response.status(404).build();
+
+		// TODO: make more informative
+		return Response.status(200).entity("{\"status\":\"failure\"}").build();
 	}
 
 }

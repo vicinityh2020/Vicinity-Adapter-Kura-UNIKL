@@ -14,6 +14,7 @@ import org.unikl.adapter.VicinityObjectInterface.VicinityObjectInterface;
 
 public class VicinityObject {
 	private static final Logger s_logger = LoggerFactory.getLogger(UniklResourceContainer.class);
+	private static int cnt = 1;
 
 	private String TYPE = "type";
 	private String OID = "oid";
@@ -34,8 +35,7 @@ public class VicinityObject {
 
 		// TODO: get oid from Martin
 		Random rand = new Random();
-		_oid = new Pair<String, String>("oid", "abc-" + String.valueOf(rand.nextInt(99999)) + "-0123456789-xyz-"
-				+ String.valueOf(rand.nextInt(99999)));
+		_oid = new Pair<String, String>("oid", "bulb" + cnt++);
 
 		_properties = new ArrayList<Property>();
 		_actions = new ArrayList<Action>();
@@ -189,9 +189,14 @@ public class VicinityObject {
 			return _pid.getParameterValue();
 		}
 
-		// TODO: Here connect to sensors
+		// TODO: Make more elegant, mother fucker!!!
 		public String getPropertyValue(String propertyName) {
 			return _vobjInstance.getProperty(_oid, propertyName);
+		}
+
+		// TODO: fuck you if it is not writebale!
+		public boolean setPropertyValue(String propertyName, String value) {
+			return _vobjInstance.setProperty(_oid, propertyName, value);
 		}
 
 		public String getPropertyValueStr(String propertyName) {

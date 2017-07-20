@@ -74,82 +74,9 @@ public class PhilipsHue implements VicinityObjectInterface {
         PHBridgeSearchManager sm = (PHBridgeSearchManager)phHueSDK.getSDKService(PHHueSDK.SEARCH_BRIDGE);
         sm.search(true, true);
     }
-    
-    /*
-    public List<String> getLightIdentifiers() {
-    	List<PHLight> allLights = bridge.getResourceCache().getAllLights();
-    	List<String> ids = new ArrayList<String>();
-        for (final PHLight light : allLights) {
-        	ids.add(light.getIdentifier());
-        }
-        return ids;
-    }
-    */
 
     public void setInstance (PHLight phlight) {
     	UniklResourceContainer.getInstance().getObjectByObjectID(phlight.getName()).setVicinityObjectInstance(this);
-    }
-
-    public boolean setBrightness(String oid, String value) {
-    	int brightness = (value != null) ? Integer.parseInt(value) : 0; 
-
-    	if (brightness < 0 || brightness > 255)
-    		return false;
-
-        for (final PHLight light : allLights) {
-        	if (!oid.equals(light.getName()))
-        		continue;
-        	PHLightState lightState = new PHLightState();
-			lightState.setBrightness(brightness);
-			bridge.updateLightState(light, lightState);
-        }
-    	return false;
-    }
-	
-    public boolean setHue(String oid, String value) {
-    	int hue = (value != null) ? Integer.parseInt(value) : 0; 
-
-    	if (hue < 0 || hue > 65535)
-    		return false;
-
-        for (final PHLight light : allLights) {
-        	if (!oid.equals(light.getName()))
-        		continue;
-        	PHLightState lightState = new PHLightState();
-			lightState.setHue(hue);
-			bridge.updateLightState(light, lightState);
-        }
-    	return false;
-    }
-
-    public boolean setColor(String oid, String R, String G, String B) {
-    	int r = (R != null) ? Integer.parseInt(R) : 0; 
-    	int g = (G != null) ? Integer.parseInt(G) : 0; 
-    	int b = (B != null) ? Integer.parseInt(B) : 0;
-
-    	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-    		return false;
-    	
-    	/*
-    	double r, g, b;
-    	r /= 255;
-    	g /= 255;
-    	b /= 255;
-    	*/
-
-        for (final PHLight light : allLights) {
-        	if (!oid.equals(light.getName()))
-        		continue;
-        	
-        	PHLightState lightState = new PHLightState();
-        	float[] xy = PHUtilities.calculateXYFromRGB(r, g, b, light.getModelNumber());
-            lightState.setX(xy[0]); 
-            lightState.setY(xy[1]); 
-            bridge.updateLightState(light, lightState);
-
-            return true;
-        }
-    	return false;
     }
     
     // Local SDK Listener
@@ -272,28 +199,31 @@ public class PhilipsHue implements VicinityObjectInterface {
 	}
 
 	@Override
-	public boolean setProperty(String oid, String actionName, String value) {
+	public boolean setProperty(String oid, String propertyName, String value) {
         for (PHLight light : allLights) {
         	if (!oid.equals(light.getName()))
         		continue;
         
-    		s_logger.info("[" + BUNDLE_ID + "] FOUND " + actionName);
+    		s_logger.info("[" + BUNDLE_ID + "] FOUND " + propertyName);
 
     		PHLightState lightState = new PHLightState();
-    		int digValue = Integer.parseInt(value);
 		
-        	if (actionName.equals("hue")) {
-   
+        	if (propertyName.equals("hue")) {
+        		
+        		int digValue = Integer.parseInt(value);
     			lightState.setHue(digValue);
     			bridge.updateLightState(light, lightState);
     			return true;
       		
-    		} else if (actionName.equals("brightness")) {
+    		} else if (propertyName.equals("brightness")) {
     			
+        		int digValue = Integer.parseInt(value);
     			lightState.setBrightness(digValue);
     			bridge.updateLightState(light, lightState);
     			return true;
-    		} else if (actionName.equals("color")) {
+    			
+    		} else if (propertyName.equals("color")) {
+    			
     			if (value.length() != 6)
     				return false;
             	float[] xy = PHUtilities.calculateXYFromRGB(Integer.parseInt(value.substring(0, 2), 16), Integer.parseInt(value.substring(2, 4), 16), Integer.parseInt(value.substring(4, 6), 16), light.getModelNumber());

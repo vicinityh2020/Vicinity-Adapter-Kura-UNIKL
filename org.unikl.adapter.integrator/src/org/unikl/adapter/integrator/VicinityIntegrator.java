@@ -11,13 +11,16 @@ import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+
 public class VicinityIntegrator {
 	private static final String BUNDLE_ID = "org.unikl.adapter.integrator";
 	private static final Logger s_logger = LoggerFactory.getLogger(VicinityIntegrator.class);
 	private ServiceRegistration<UniklResourceContainer> registration;
     ConfigurationAdmin configurationAdmin;
+	private ServiceRegistration json_registration;
 	
-	protected void activate(ComponentContext componentContext) {
+	protected void activate(ComponentContext context) {
 		s_logger.debug("[" + BUNDLE_ID + "]" + " activating...");
 
         Configuration configuration = null;
@@ -42,8 +45,10 @@ public class VicinityIntegrator {
 		}
 		///////////////////
 		
-		registration = componentContext.getBundleContext().registerService(UniklResourceContainer.class, UniklResourceContainer.getInstance(), null);
+		registration = context.getBundleContext().registerService(UniklResourceContainer.class, UniklResourceContainer.getInstance(), null);
 		
+	    JacksonJsonProvider service = new JacksonJsonProvider();
+	    json_registration = context.getBundleContext().registerService(JacksonJsonProvider.class.getName(), service, null);
 		s_logger.debug("[" + BUNDLE_ID + "]" + " activated!");
 	}
 
@@ -51,7 +56,8 @@ public class VicinityIntegrator {
 		s_logger.debug("[" + BUNDLE_ID + "]" + " deactivating...");
 
 		registration.unregister();
-
+		json_registration.unregister();
+		
 		s_logger.debug("[" + BUNDLE_ID + "]" + " deactivated!");
 	}
 	
