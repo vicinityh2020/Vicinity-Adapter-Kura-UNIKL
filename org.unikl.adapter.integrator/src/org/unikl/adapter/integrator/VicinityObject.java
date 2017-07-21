@@ -40,10 +40,10 @@ public class VicinityObject {
 		_properties = new ArrayList<Property>();
 		_actions = new ArrayList<Action>();
 
-		if (type == "Thermostate") {
+		if (type.equals("Thermostate")) {
 			_properties.add(new Property(_oid.getParameterValue(), "temp1", "Temperature", false, "Celsius", "float")); // TODO: haha....hardcode....
 			_actions.add(new Action(_oid.getParameterValue(), "switch", "OnOffStatus", "Adimentional", "boolean"));
-		} else if (type == "PHLightBulb") {
+		} else if (type.equals("LightBulb")) {
 //			_properties.add(new Property(_oid.getParameterValue(), "hue", "Hue", true, "Adimentional(0-65535)", "int")); // TODO: haha....hardcode....
 			_properties.add(new Property(_oid.getParameterValue(), "brightness", "Brightness", true, "percentage(0-100)", "int")); // TODO: haha....hardcode....
 			_properties.add(new Property(_oid.getParameterValue(), "color", "Color", true, "#rgb", "int")); // TODO: haha....hardcode....
@@ -198,7 +198,7 @@ public class VicinityObject {
 		}
 
 		public String getPropertyValueStr(String propertyName) {
-			return new StringBuffer("{").append("\"value\":").append(getPropertyValue(propertyName)).append(",")
+			return new StringBuffer("{").append("\"value\":\"").append(getPropertyValue(propertyName)).append("\",")
 					.append("\"timestamp\":\"").append(new SimpleDateFormat(formatter).format(new Date())).append("\"")
 					.append("}").toString();
 		}

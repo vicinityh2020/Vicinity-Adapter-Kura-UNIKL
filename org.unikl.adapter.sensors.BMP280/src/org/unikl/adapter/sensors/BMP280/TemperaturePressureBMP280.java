@@ -49,11 +49,6 @@ public class TemperaturePressureBMP280 implements VicinityObjectInterface {
 
 		oid = UniklResourceContainer.getInstance().addUniklResource("Thermostate");
     	UniklResourceContainer.getInstance().getObjectByObjectID(oid).setVicinityObjectInstance(this);
-		/*
-             	light.setName(UniklResourceContainer.getInstance().addUniklResource("PHLightBulb"));
-                s_logger.info("[" + BUNDLE_ID + "] === OOO  " + light.getName());
-                setInstance(light);
-		 */
 		s_logger.info("[" + BUNDLE_ID + "] bundle is loaded");
 	}
 	

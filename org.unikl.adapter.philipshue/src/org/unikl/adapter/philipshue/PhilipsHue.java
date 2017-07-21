@@ -125,7 +125,7 @@ public class PhilipsHue implements VicinityObjectInterface {
             s_logger.info("[" + BUNDLE_ID + "] " + allLights.size() + " light(s) found");
             
             for (PHLight light: allLights) {
-            	light.setName(UniklResourceContainer.getInstance().addUniklResource("PHLightBulb"));
+            	light.setName(UniklResourceContainer.getInstance().addUniklResource("LightBulb"));
                 s_logger.info("[" + BUNDLE_ID + "] === OOO  " + light.getName());
                 setInstance(light);
             }
@@ -170,11 +170,24 @@ public class PhilipsHue implements VicinityObjectInterface {
         for (PHLight light : allLights) {
         	if (!oid.equals(light.getName()))
         		continue;
-        
-        	PHLightState lightState = light.getLastKnownLightState();
+        	
+        	PHLightState lightState = null;
+
+        	do {
+        		lightState = light.getLastKnownLightState();
+        		//s_logger.info("[" + BUNDLE_ID + "] ?????? " + lightState == null ? "null" : "got light state");
+        	} while (lightState == null);
+        	
         	if (propertyName.equals("brightness")) {
+        		
+        		Integer fuck = null;
+        		
+            	do {
+            		fuck = lightState.getBrightness();
+            		s_logger.info("[" + BUNDLE_ID + "] attemting get brightness " + fuck == null ? "null" : "got brightness");
+            	} while (fuck == null);
     			
-        		int value = (int) (lightState.getBrightness() / BRIGHTNESS_CONVERT_COEFFICIENT);
+        		int value = (int) (fuck.intValue() / BRIGHTNESS_CONVERT_COEFFICIENT);
     			return String.valueOf(value);
     			
     		}
@@ -202,8 +215,16 @@ public class PhilipsHue implements VicinityObjectInterface {
             	return result.toString();
 
         	} else if (propertyName.equals("consumption")) { // TODO: generate appropriate output for readonly properties?
-        		int value = (int) (CONSUMPTION_COEFFICIENT * ((lightState.getBrightness() / BRIGHTNESS_CONVERT_COEFFICIENT) / 100));
-    			return String.valueOf(value);
+        		
+        		Integer fuck = null;
+        		
+            	do {
+            		fuck = lightState.getBrightness();
+            		s_logger.info("[" + BUNDLE_ID + "] attemting get brightness " + fuck == null ? "null" : "got brightness");
+            	} while (fuck == null);
+    			
+        		double value = fuck.intValue() / BRIGHTNESS_CONVERT_COEFFICIENT;
+    			return String.valueOf(CONSUMPTION_COEFFICIENT * (value / 100));
     		}
         }
         return "";
@@ -248,7 +269,7 @@ public class PhilipsHue implements VicinityObjectInterface {
                 lightState.setX(xy[0]); 
                 lightState.setY(xy[1]); 
                 bridge.updateLightState(light, lightState);
-    			light.setLastKnownLightState(lightState);
+    			light.setLastKnownLightState(lightState); // dirty hack, write more later
 
     			return true;
     		}

@@ -146,8 +146,10 @@ public class UniklResourceContainer {
 			if (oid.equals(obj.getObjectID())) {
 				for (VicinityObject.Property prop : obj.getProperties()) {
 					if (pid.equals(prop.getPropertyID())) {
-						prop.setPropertyValue(pid, input.value);
-						return Response.status(200).entity("{\"status\":\"success\"}").build();
+						if (prop.setPropertyValue(pid, input.value))
+							return Response.status(200).entity("{\"status\":\"success\"}").build();
+						else
+							return Response.status(200).entity("{\"status\":\"failure\"}").build();
 						//return Response.status(200).entity(prop.getPropertyValueStr(aid)).build();
 					}
 				}
