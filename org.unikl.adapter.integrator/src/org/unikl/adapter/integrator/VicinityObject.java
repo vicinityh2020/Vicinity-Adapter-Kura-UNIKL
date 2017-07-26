@@ -4,10 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.unikl.adapter.VicinityObjectInterface.VicinityObjectInterface;
@@ -16,38 +13,34 @@ public class VicinityObject {
 	private static final Logger s_logger = LoggerFactory.getLogger(UniklResourceContainer.class);
 	private static int cnt = 1;
 
-	private String TYPE = "type";
-	private String OID = "oid";
-	private String PROPERTIES = "properties";
-	private String ACTIONS = "actions";
+	private static final String TYPE = "type";
+	private static final String OID = "oid";
+	private static final String PROPERTIES = "properties";
+	private static final String ACTIONS = "actions";
 
-	private Pair<String, String> _type; // crap, there are NO typedefs, screw Java
-	private Pair<String, String> _oid; // TODO: fuck hardcode, fuck! but Peter forced me to do this! he is guilty! 
+	private String _type; // crap, there are NO typedefs, screw Java
+	private String _oid; // TODO: fuck hardcode, fuck! but Peter forced me to do this! he is guilty! 
 
 	private List<Property> _properties;
 	private List<Action> _actions;
 
-	static int a = 0;
-
 	// TODO: Constructor for creating
 	public VicinityObject(String type) {
-		_type = new Pair<String, String>("type", type);
+		_type = new String(type);
 
 		// TODO: get oid from Martin
-		Random rand = new Random();
-		_oid = new Pair<String, String>("oid", "bulb" + cnt++);
+		_oid = new String("bulb" + cnt++);
 
 		_properties = new ArrayList<Property>();
 		_actions = new ArrayList<Action>();
 
 		if (type.equals("Thermostate")) {
-			_properties.add(new Property(_oid.getParameterValue(), "temp1", "Temperature", false, "Celsius", "float")); // TODO: haha....hardcode....
-			_actions.add(new Action(_oid.getParameterValue(), "switch", "OnOffStatus", "Adimentional", "boolean"));
+			_properties.add(new Property(_oid, "temp1", "Temperature", false, "Celsius", "float")); // TODO: haha....hardcode....
+			_actions.add(new Action(_oid, "switch", "OnOffStatus", "Adimentional", "boolean"));
 		} else if (type.equals("LightBulb")) {
-//			_properties.add(new Property(_oid.getParameterValue(), "hue", "Hue", true, "Adimentional(0-65535)", "int")); // TODO: haha....hardcode....
-			_properties.add(new Property(_oid.getParameterValue(), "brightness", "Brightness", true, "percentage(0-100)", "int")); // TODO: haha....hardcode....
-			_properties.add(new Property(_oid.getParameterValue(), "color", "Color", true, "#rgb", "int")); // TODO: haha....hardcode....
-			_properties.add(new Property(_oid.getParameterValue(), "consumption", "Consumption", false, "watt", "double")); // TODO: haha....hardcode....
+			_properties.add(new Property(_oid, "brightness", "Brightness", true, "percentage(0-100)", "int")); // TODO: haha....hardcode....
+			_properties.add(new Property(_oid, "color", "Color", true, "#rgb", "int")); // TODO: haha....hardcode....
+			_properties.add(new Property(_oid, "consumption", "Consumption", false, "watt", "double")); // TODO: haha....hardcode....
 		}
 	}
 
@@ -64,7 +57,7 @@ public class VicinityObject {
 	}
 
 	public String getObjectID() {
-		return _oid.getParameterValue();
+		return _oid;
 	}
 
 	public List<Property> getProperties() {
@@ -107,22 +100,31 @@ public class VicinityObject {
 
 	@Override
 	public String toString() {
-		return new StringBuffer("{").append("\"").append(_type.getParameterName()).append("\":\"")
-				.append(_type.getParameterValue()).append("\"").append(",").append("\"").append(_oid.getParameterName())
-				.append("\":\"").append(_oid.getParameterValue()).append("\"").append(",").append("\"")
-				.append(PROPERTIES).append("\":").append(getPropertiesStr()).append(",").append("\"").append(ACTIONS)
-				.append("\":").append(getActionsStr()).append("}").toString();
+		return new StringBuffer("{")
+				.append("\"").append(TYPE).append("\":\"").append(_type).append("\"")
+				.append(",")
+				.append("\"").append(OID).append("\":\"").append(_oid).append("\"")
+				.append(",")
+				.append("\"").append(PROPERTIES).append("\":").append(getPropertiesStr())
+				.append(",")
+				.append("\"").append(ACTIONS).append("\":").append(getActionsStr())
+				.append("}")
+				.toString();
 	}
 
 	public class Property {
-		private String READ_LINKS = "read_links";
-		private String WRITE_LINKS = "write_links";
-		private String OUTPUT = "output";
+		private static final String PID = "pid";
+		private static final String MONITORS = "monitors";
+		private static final String WRITABLE = "writable";
+
+		private static final String READ_LINKS = "read_links";
+		private static final String WRITE_LINKS = "write_links";
+		private static final String OUTPUT = "output";
 
 		private String _oid;
-		private Pair<String, String> _pid;
-		private Pair<String, String> _monitors;
-		private Pair<String, String> _writable;
+		private String _pid;
+		private String _monitors;
+		private boolean _writable;
 
 		private Data _output;
 
@@ -138,14 +140,16 @@ public class VicinityObject {
 			// TODO: generate automatically
 			_oid = oid;
 			
-			_pid = new Pair<String, String>("pid", pid);
-			_monitors = new Pair<String, String>("monitors", monitors);
-			_writable = new Pair<String, String>("writable", (writable == true) ? "true" : "false");
+			_pid = new String(pid);
+			_monitors = new String( monitors);
+			_writable = writable;
 
 			_output = new Data(units, datatype);
 
-			_pReadLinks.add(new Link("/objects/" + oid + "/properties/" + _pid.getParameterValue(), "application/json"));
-			_pWriteLinks.add(new Link("/objects/" + oid + "/properties/" + _pid.getParameterValue(), "application/json"));
+			_pReadLinks.add(new Link("/objects/" + oid + "/properties/" + _pid, "application/json"));
+			
+			if (writable)
+				_pWriteLinks.add(new Link("/objects/" + oid + "/properties/" + _pid, "application/json"));
 		}
 		
 		public void setVicinityObjectInstance(VicinityObjectInterface vobjInstance) {
@@ -184,7 +188,7 @@ public class VicinityObject {
 		}
 
 		public String getPropertyID() {
-			return _pid.getParameterValue();
+			return _pid;
 		}
 
 		// TODO: Make more elegant, mother fucker!!!
@@ -198,37 +202,46 @@ public class VicinityObject {
 		}
 
 		public String getPropertyValueStr(String propertyName) {
-			return new StringBuffer("{").append("\"value\":\"").append(getPropertyValue(propertyName)).append("\",")
+			return new StringBuffer("{")
+					.append("\"value\":\"").append(getPropertyValue(propertyName)).append("\"")
+					.append(",")
 					.append("\"timestamp\":\"").append(new SimpleDateFormat(formatter).format(new Date())).append("\"")
-					.append("}").toString();
+					.append("}")
+					.toString();
 		}
 
 		@Override
 		public String toString() {
-			return new StringBuffer("{").append("\"").append(_pid.getParameterName()).append("\":\"")
-					.append(_pid.getParameterValue()).append("\"").append(",").append("\"")
-					.append(_monitors.getParameterName()).append("\":\"").append(_monitors.getParameterValue())
-					.append("\"").append(",").append("\"").append(_writable.getParameterName()).append("\":\"")
-					.append(_writable.getParameterValue()).append("\"").append(",").append("\"").append(OUTPUT)
-					.append("\":").append(_output.toString()).append(",").append("\"").append(READ_LINKS).append("\":")
-					.append(getReadLinks()).append(",").append("\"").append(WRITE_LINKS).append("\":")
-					.append(getWriteLinks()).append("}").toString();
+			return new StringBuffer("{")
+					.append("\"").append(PID).append("\":\"").append(_pid).append("\"")
+					.append(",")
+					.append("\"").append(MONITORS).append("\":\"").append(_monitors).append("\"")
+					.append(",")
+					.append("\"").append(WRITABLE).append("\":\"").append((_writable == true) ? "true" : "false").append("\"")
+					.append(",")
+					.append("\"").append(OUTPUT).append("\":").append(_output.toString())
+					.append(",")
+					.append("\"").append(READ_LINKS).append("\":").append(getReadLinks())
+					.append(",")
+					.append("\"").append(WRITE_LINKS).append("\":").append(getWriteLinks())
+					.append("}")
+					.toString();
 		}
 	}
 
 	public class Action {
 		// TODO: bad performance
-		private String AID = "aid";
-		private String AFFECTS = "affects";
+		private static final String AID = "aid";
+		private static final String AFFECTS = "affects";
 
-		private String READ_LINKS = "read_links";
-		private String WRITE_LINKS = "write_links";
-		private String INPUT = "input";
+		private static final String READ_LINKS = "read_links";
+		private static final String WRITE_LINKS = "write_links";
+		private static final String INPUT = "input";
 
 		private String _oid;
 
-		private Pair<String, String> _aid;
-		private Pair<String, String> _affects;
+		private String _aid;
+		private String _affects;
 
 		private Data _input;
 
@@ -241,12 +254,12 @@ public class VicinityObject {
 			// TODO: generate automatically
 			_oid = oid;
 			
-			_aid = new Pair<String, String>(AID, aid); // TODO: hmm
-			_affects = new Pair<String, String>(AFFECTS, affects); // TODO
+			_aid = new String(aid); // TODO: hmm
+			_affects = new String(affects); // TODO
 
 			_input = new Data(units, datatype); // TODO
-			_aReadLinks.add(new Link("/objects/" + oid + "/actions/" + _aid.getParameterValue(), "application/json"));
-			_aWriteLinks.add(new Link("/objects/" + oid + "/actions/" + _aid.getParameterValue(), "application/json"));
+			_aReadLinks.add(new Link("/objects/" + oid + "/actions/" + _aid, "application/json"));
+			_aWriteLinks.add(new Link("/objects/" + oid + "/actions/" + _aid, "application/json"));
 		}
 
 		public void setVicinityObjectInstance(VicinityObjectInterface vobjInstance) {
@@ -290,63 +303,73 @@ public class VicinityObject {
 		}
 
 		public String getActionID() {
-			return _aid.getParameterValue();
+			return _aid;
 		}
 
 		@Override
 		public String toString() {
-			return new StringBuffer("{").append("\"").append(_aid.getParameterName()).append("\":\"")
-					.append(_aid.getParameterValue()).append("\"").append(",").append("\"")
-					.append(_affects.getParameterName()).append("\":\"").append(_affects.getParameterValue())
-					.append("\"").append(",").append("\"").append(INPUT).append("\":").append(_input.toString())
-					.append(",").append("\"").append(READ_LINKS).append("\":").append(getReadLinks()).append(",")
-					.append("\"").append(WRITE_LINKS).append("\":").append(getWriteLinks()).append("}").toString();
+			return new StringBuffer("{")
+					.append("\"").append(AID).append("\":\"").append(_aid).append("\"")
+					.append(",")
+					.append("\"").append(AFFECTS).append("\":\"").append(_affects).append("\"")
+					.append(",")
+					.append("\"").append(INPUT).append("\":").append(_input.toString())
+					.append(",")
+					.append("\"").append(READ_LINKS).append("\":").append(getReadLinks())
+					.append(",")
+					.append("\"").append(WRITE_LINKS).append("\":").append(getWriteLinks())
+					.append("}")
+					.toString();
 		}
 	}
 
 	public class Link {
 		// TODO: bad performance
-		private String HREF = "href";
-		private String MEDIATYPE = "mediatype";
+		private static final String HREF = "href";
+		private static final String MEDIATYPE = "mediatype";
 
-		private Pair<String, String> _href;
-		private Pair<String, String> _mediatype;
+		private String _href;
+		private String _mediatype;
 
 		public Link(String href, String mediaType) {
 			// TODO: I do not like this hardcode
-			_href = new Pair<String, String>(HREF, href);
-			_mediatype = new Pair<String, String>(MEDIATYPE, mediaType);
+			_href = new String(href);
+			_mediatype = new String(mediaType);
 		}
 
 		@Override
 		public String toString() {
-			return new StringBuffer("{").append("\"").append(_href.getParameterName()).append("\":\"")
-					.append(_href.getParameterValue()).append("\"").append(",").append("\"")
-					.append(_mediatype.getParameterName()).append("\":\"").append(_mediatype.getParameterValue())
-					.append("\"").append("}").toString();
+			return new StringBuffer("{")
+					.append("\"").append(HREF).append("\":\"").append(_href).append("\"")
+					.append(",")
+					.append("\"").append(MEDIATYPE).append("\":\"").append(_mediatype).append("\"")
+					.append("}")
+					.toString();
 		}
 	}
 
 	public class Data {
 		// TODO: bad performance
-		public final String UNITS = "units";
-		public final String DATATYPE = "datatype";
+		private static final String UNITS = "units";
+		private static final String DATATYPE = "datatype";
 
-		private Pair<String, String> _units;
-		private Pair<String, String> _datatype;
+		private String _units;
+		private String _datatype;
 
 		public Data(String units, String datatype) {
 			// TODO: I do not like this hardcode
-			_units = new Pair<String, String>(UNITS, units);
-			_datatype = new Pair<String, String>(DATATYPE, datatype);
+			_units = new String(units);
+			_datatype = new String(datatype);
 		}
 
 		@Override
 		public String toString() {
-			return new StringBuffer("{").append("\"").append(_units.getParameterName()).append("\":\"")
-					.append(_units.getParameterValue()).append("\"").append(",").append("\"")
-					.append(_datatype.getParameterName()).append("\":\"").append(_datatype.getParameterValue())
-					.append("\"").append("}").toString();
+			return new StringBuffer("{")
+					.append("\"").append(UNITS).append("\":\"").append(_units).append("\"").
+					append(",")
+					.append("\"").append(DATATYPE).append("\":\"").append(_datatype).append("\"")
+					.append("}")
+					.toString();
 		}
 	}
 };

@@ -87,7 +87,7 @@ public class PhilipsHue implements VicinityObjectInterface {
         sm.search(true, true);
     }
 
-    public void setInstance (PHLight phlight) {
+    public void setInstance(PHLight phlight) {
     	UniklResourceContainer.getInstance().getObjectByObjectID(phlight.getName()).setVicinityObjectInstance(this);
     }
     
@@ -157,11 +157,6 @@ public class PhilipsHue implements VicinityObjectInterface {
     		s_logger.info("[" + BUNDLE_ID + "] parsing error happened!");
     	}
     };
-    
-	@Override
-	public VicinityObjectInterface getInstance() {
-		return this;
-	}
 
 	@Override
 	public String getProperty(String oid, String propertyName) {
