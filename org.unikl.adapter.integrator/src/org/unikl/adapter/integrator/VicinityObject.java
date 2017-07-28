@@ -225,48 +225,49 @@ public class VicinityObject {
 		private String WRITE_LINKS = "write_links";
 		private String INPUT = "input";
 
-		private String _oid;
+		private String oid;
 
-		private Pair<String, String> _aid;
-		private Pair<String, String> _affects;
+		private String aid;
+		private String affects;
 
-		private Data _input;
+		private Data input;
 
-		private List<Link> _aReadLinks = new ArrayList<Link>();
-		private List<Link> _aWriteLinks = new ArrayList<Link>();
+		private List<Link> aReadLinks = new ArrayList<Link>();
+		private List<Link> aWriteLinks = new ArrayList<Link>();
 
-		private VicinityObjectInterface _vobjInstance;
+		private VicinityObjectInterface vobjInstance;
 
 		public Action(String oid, String aid, String affects, String units, String datatype) {
-			// TODO: generate automatically
-			_oid = oid;
+			// TODO: hmmmmmm
+			this.oid = oid;
 			
-			_aid = new Pair<String, String>(AID, aid); // TODO: hmm
-			_affects = new Pair<String, String>(AFFECTS, affects); // TODO
+			this.aid = aid;
+			this.affects = affects;
 
-			_input = new Data(units, datatype); // TODO
-			_aReadLinks.add(new Link("/objects/" + oid + "/actions/" + _aid.getParameterValue(), "application/json"));
-			_aWriteLinks.add(new Link("/objects/" + oid + "/actions/" + _aid.getParameterValue(), "application/json"));
+			this.input = new Data(units, datatype); // TODO
+			this.aReadLinks.add(new Link("/objects/" + oid + "/actions/" + aid, "application/json"));
+			this.aWriteLinks.add(new Link("/objects/" + oid + "/actions/" + aid, "application/json"));
 		}
 
 		public void setVicinityObjectInstance(VicinityObjectInterface vobjInstance) {
-			this._vobjInstance = vobjInstance;
+			this.vobjInstance = vobjInstance;
 		}
 
-		// hmmm.....
+		/* TODO: obviously this is not usable
 		public boolean setAction(String paramName, String value) {
-			return _vobjInstance.setProperty(_oid, paramName, value);
+			return vobjInstance.setProperty(_oid, paramName, value);
 		}
+		*/
 
 		// TODO: merge getReadLinks and getWriteLinks
 		public String getReadLinks() {
-			int n = _aReadLinks.size();
+			int n = aReadLinks.size();
 
 			StringBuffer sb = new StringBuffer();
 			sb.append("[");
 
 			for (int i = 0; i < n; i++) {
-				sb.append(_aReadLinks.get(i).toString());
+				sb.append(aReadLinks.get(i).toString());
 				if (i != n - 1)
 					sb.append(",");
 			}
@@ -275,13 +276,13 @@ public class VicinityObject {
 		}
 
 		public String getWriteLinks() {
-			int n = _aWriteLinks.size();
+			int n = aWriteLinks.size();
 
 			StringBuffer sb = new StringBuffer();
 			sb.append("[");
 
 			for (int i = 0; i < n; i++) {
-				sb.append(_aWriteLinks.get(i).toString());
+				sb.append(aWriteLinks.get(i).toString());
 				if (i != n - 1)
 					sb.append(",");
 			}
@@ -290,17 +291,23 @@ public class VicinityObject {
 		}
 
 		public String getActionID() {
-			return _aid.getParameterValue();
+			return aid;
 		}
 
 		@Override
 		public String toString() {
-			return new StringBuffer("{").append("\"").append(_aid.getParameterName()).append("\":\"")
-					.append(_aid.getParameterValue()).append("\"").append(",").append("\"")
-					.append(_affects.getParameterName()).append("\":\"").append(_affects.getParameterValue())
-					.append("\"").append(",").append("\"").append(INPUT).append("\":").append(_input.toString())
-					.append(",").append("\"").append(READ_LINKS).append("\":").append(getReadLinks()).append(",")
-					.append("\"").append(WRITE_LINKS).append("\":").append(getWriteLinks()).append("}").toString();
+			return new StringBuffer("{")
+					.append("\"").append(AID).append("\":\"").append(aid).append("\"")
+					.append(",")
+					.append("\"").append(AFFECTS).append("\":\"").append(affects).append("\"")
+					.append(",")
+					.append("\"").append(INPUT).append("\":").append(input.toString())
+					.append(",")
+					.append("\"").append(READ_LINKS).append("\":").append(getReadLinks())
+					.append(",")
+					.append("\"").append(WRITE_LINKS).append("\":").append(getWriteLinks())
+					.append("}")
+					.toString();
 		}
 	}
 
