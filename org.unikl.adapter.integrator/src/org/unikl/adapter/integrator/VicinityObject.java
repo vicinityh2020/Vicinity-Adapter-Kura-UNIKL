@@ -305,25 +305,25 @@ public class VicinityObject {
 	}
 
 	public class Link {
-		// TODO: bad performance
 		private String HREF = "href";
 		private String MEDIATYPE = "mediatype";
 
-		private Pair<String, String> _href;
-		private Pair<String, String> _mediatype;
+		private String href;
+		private String mediatype;
 
 		public Link(String href, String mediaType) {
-			// TODO: I do not like this hardcode
-			_href = new Pair<String, String>(HREF, href);
-			_mediatype = new Pair<String, String>(MEDIATYPE, mediaType);
+			this.href = href;
+			this.mediatype = mediaType;
 		}
 
 		@Override
 		public String toString() {
-			return new StringBuffer("{").append("\"").append(_href.getParameterName()).append("\":\"")
-					.append(_href.getParameterValue()).append("\"").append(",").append("\"")
-					.append(_mediatype.getParameterName()).append("\":\"").append(_mediatype.getParameterValue())
-					.append("\"").append("}").toString();
+			return new StringBuffer("{")
+					.append("\"").append(HREF).append("\":\"").append(href).append("\"")
+					.append(",")
+					.append("\"").append(MEDIATYPE).append("\":\"").append(mediatype).append("\"")
+					.append("}")
+					.toString();
 		}
 	}
 
