@@ -328,25 +328,25 @@ public class VicinityObject {
 	}
 
 	public class Data {
-		// TODO: bad performance
 		public final String UNITS = "units";
 		public final String DATATYPE = "datatype";
 
-		private Pair<String, String> _units;
-		private Pair<String, String> _datatype;
+		private String units;
+		private String datatype;
 
 		public Data(String units, String datatype) {
-			// TODO: I do not like this hardcode
-			_units = new Pair<String, String>(UNITS, units);
-			_datatype = new Pair<String, String>(DATATYPE, datatype);
+			this.units = units;
+			this.datatype = datatype;
 		}
 
 		@Override
 		public String toString() {
-			return new StringBuffer("{").append("\"").append(_units.getParameterName()).append("\":\"")
-					.append(_units.getParameterValue()).append("\"").append(",").append("\"")
-					.append(_datatype.getParameterName()).append("\":\"").append(_datatype.getParameterValue())
-					.append("\"").append("}").toString();
+			return new StringBuffer("{")
+					.append("\"").append(UNITS).append("\":\"").append(units).append("\"")
+					.append(",")
+					.append("\"").append(DATATYPE).append("\":\"").append(datatype).append("\"")
+					.append("}")
+					.toString();
 		}
 	}
 };
