@@ -12,3 +12,4 @@ Import-Package: org.osgi.service.component;version="1.2.2",
  org.unikl.adapter.VicinityObjectInterface,
  org.unikl.adapter.integrator
 Service-Component: OSGI-INF/component.xml
+Require-Bundle: org.unikl.adapter.integrator;bundle-version="1.0.0"

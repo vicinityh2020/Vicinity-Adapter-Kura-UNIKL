@@ -32,7 +32,7 @@ public class PhilipsHue implements VicinityObjectInterface {
 	List<PHLight> allLights = new ArrayList<PHLight>();
 	
     private PHHueSDK phHueSDK;
-    PHBridge bridge; // TODO: support more than one bridge later
+    private PHBridge bridge; // TODO: support more than one bridge later
     
     // PhilipsSDK's brightness varies between 0 and 254
     // However, for VICINITY we should return value between 0 and 100 (percentage)
@@ -46,24 +46,48 @@ public class PhilipsHue implements VicinityObjectInterface {
 
         // Gets an instance of the Hue SDK.
         phHueSDK = PHHueSDK.create();
-        phHueSDK.setDeviceName("Bridge Searcher");
+
+        // phHueSDK.setDeviceName("Bridge Searcher");
+        phHueSDK.setAppName("VICINITYAdapterApplication");
+        phHueSDK.setDeviceName("VICINITYAdapter");
+
         // for getting callbacks from bridge
         phHueSDK.getNotificationManager().registerSDKListener(listener);
-        // Perform bridge search
+        
+        // Try to automatically connect to the last known bridge.  For first time use this will be empty so a bridge search is automatically started.
+       // prefs = HueSharedPreferences.getInstance(getApplicationContext());
+        String lastIpAddress   = "192.168.2.3";
+        String lastUsername    = "-Rakz7bPWHp6KfbkgK7pQC8CFANP-p7YtpWJhSBU";
+        // Automatically try to connect to the last connected IP Address.  For multiple bridge support a different implementation is required.
+        if (lastIpAddress !=null && !lastIpAddress.equals("")) {
+            PHAccessPoint lastAccessPoint = new PHAccessPoint();
+            lastAccessPoint.setIpAddress(lastIpAddress);
+            lastAccessPoint.setUsername(lastUsername);
+            
+    		s_logger.info("[" + BUNDLE_ID + "]" + "trying to connect with IP/username:" + lastIpAddress + "/" + lastUsername);
 
-        searchBridge();
+            if (!phHueSDK.isAccessPointConnected(lastAccessPoint)) {
+               phHueSDK.connect(lastAccessPoint);
+            }
+        }
+        else {  // First time use, so perform a bridge search.
+            searchBridge();
+        }
 
 		s_logger.info("[" + BUNDLE_ID + "]" + " activated!");
 	}
 
 	protected void deactivate(ComponentContext componentContext) {
 		s_logger.info("PhilipsHue bundle... unloading");
-
+		allLights.clear();
+		bridge = null;
+		phHueSDK.destroySDK();
 		s_logger.info("PhilipsHue bundle... unloaded");		
 	}
 	
 	// TODO: actually noone needs this crap, but I would like to
 	// make an easter egg out of this later 
+	/*
     public void randomizeLights(final PHBridge bridge) {
         for (final PHLight light : allLights) {
         	Timer timer = new Timer();
@@ -80,6 +104,7 @@ public class PhilipsHue implements VicinityObjectInterface {
   			}, 100, 100);
         }
 	}
+	*/
 
     // +
     public void searchBridge() {
@@ -113,15 +138,18 @@ public class PhilipsHue implements VicinityObjectInterface {
     	}
 
     	@Override
-    	public void onBridgeConnected(PHBridge br, String arg1) {
+    	public void onBridgeConnected(PHBridge br, String username) {
     		s_logger.info("[" + BUNDLE_ID + "] bridge connected!");
     		
     		bridge = br;
     		
             phHueSDK.setSelectedBridge(bridge);
             phHueSDK.enableHeartbeat(bridge, PHHueSDK.HB_INTERVAL);
+            
+    		s_logger.info("[" + BUNDLE_ID + "]" + "onBridgeConnected: " + username);
 
-        	allLights = bridge.getResourceCache().getAllLights();
+          
+            allLights = bridge.getResourceCache().getAllLights();
             s_logger.info("[" + BUNDLE_ID + "] " + allLights.size() + " light(s) found");
             
             for (PHLight light: allLights) {
@@ -140,6 +168,7 @@ public class PhilipsHue implements VicinityObjectInterface {
     	public void onConnectionLost(PHAccessPoint arg0) {
     		s_logger.info("[" + BUNDLE_ID + "] connection to bridge lost... retrying...");
     		bridge = null;
+    		allLights.clear();
     		searchBridge();
     	}
 
@@ -149,7 +178,7 @@ public class PhilipsHue implements VicinityObjectInterface {
 
     	@Override
     	public void onError(int code, String descr) {
-    		s_logger.info("[" + BUNDLE_ID + "] " + code + " " + descr);
+    		s_logger.info("[" + BUNDLE_ID + "] onError() " + code + " " + descr);
     	}
 
     	@Override
@@ -174,7 +203,7 @@ public class PhilipsHue implements VicinityObjectInterface {
         	PHLightState lightState = null;
 
         	do {
-        		lightState = light.getLastKnownLightState();
+        		lightState = light.getLastKnownLightState();// TODO: THIS IS FUCK NUMBER ONE!!! The reason of exceptions and infinite loops
         		//s_logger.info("[" + BUNDLE_ID + "] ?????? " + lightState == null ? "null" : "got light state");
         	} while (lightState == null);
         	
@@ -245,7 +274,7 @@ public class PhilipsHue implements VicinityObjectInterface {
     			// no idea how precise this shit is...
         		int digValue = (int) (Integer.parseInt(value) * BRIGHTNESS_CONVERT_COEFFICIENT);
     			lightState.setBrightness(digValue);
-    			light.setLastKnownLightState(lightState);
+    			//light.setLastKnownLightState(lightState);
     			bridge.updateLightState(light, lightState);
     			return true;
 	
@@ -268,8 +297,8 @@ public class PhilipsHue implements VicinityObjectInterface {
         		s_logger.info("[" + BUNDLE_ID + "] setProperty color " + Integer.parseInt(value.substring(0, 2), 16) + " " + Integer.parseInt(value.substring(2, 4), 16) + " " + Integer.parseInt(value.substring(4, 6), 16));
                 lightState.setX(xy[0]); 
                 lightState.setY(xy[1]); 
+    			//light.setLastKnownLightState(lightState); // dirty hack, write more later
                 bridge.updateLightState(light, lightState);
-    			light.setLastKnownLightState(lightState); // dirty hack, write more later
 
     			return true;
     		}
