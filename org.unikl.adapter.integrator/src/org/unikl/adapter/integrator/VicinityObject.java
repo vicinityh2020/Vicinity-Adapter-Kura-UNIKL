@@ -13,18 +13,16 @@ public class VicinityObject {
 	private static final Logger s_logger = LoggerFactory.getLogger(UniklResourceContainer.class);
 	private static int cnt = 1;
 
-	private String TYPE = "type";
-	private String OID = "oid";
-	private String PROPERTIES = "properties";
-	private String ACTIONS = "actions";
+	private static final String TYPE = "type";
+	private static final String OID = "oid";
+	private static final String PROPERTIES = "properties";
+	private static final String ACTIONS = "actions";
 
 	private String type; // crap, there are NO typedefs, screw Java
 	private String oid; // TODO: fuck hardcode, fuck! but Peter forced me to do this! he is guilty! 
 
 	private List<Property> properties;
 	private List<Action> actions;
-
-	static int a = 0;
 
 	// TODO: Constructor for creating
 	public VicinityObject(String type) {
@@ -229,12 +227,12 @@ public class VicinityObject {
 
 	public class Action {
 		// TODO: bad performance
-		private String AID = "aid";
-		private String AFFECTS = "affects";
+		private static final String AID = "aid";
+		private static final String AFFECTS = "affects";
 
-		private String READ_LINKS = "read_links";
-		private String WRITE_LINKS = "write_links";
-		private String INPUT = "input";
+		private static final String READ_LINKS = "read_links";
+		private static final String WRITE_LINKS = "write_links";
+		private static final String INPUT = "input";
 
 		private String oid;
 

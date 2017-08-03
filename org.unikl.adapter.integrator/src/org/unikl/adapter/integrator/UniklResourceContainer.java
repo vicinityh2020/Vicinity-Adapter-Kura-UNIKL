@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 @Path("/")
 public class UniklResourceContainer {
 
-	private static List<VicinityObject> objects;
+	private static List<VicinityObject> objects = null;
 	private static UniklResourceContainer instance = null;
 	private static final Logger s_logger = LoggerFactory.getLogger(UniklResourceContainer.class);
 
