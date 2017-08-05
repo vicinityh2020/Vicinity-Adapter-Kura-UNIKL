@@ -11,7 +11,6 @@ import org.unikl.adapter.VicinityObjectInterface.VicinityObjectInterface;
 
 public class VicinityObject {
 	private static final Logger s_logger = LoggerFactory.getLogger(UniklResourceContainer.class);
-	private static int cnt = 1;
 
 	private static final String TYPE = "type";
 	private static final String OID = "oid";
@@ -25,41 +24,28 @@ public class VicinityObject {
 	private List<Action> actions;
 
 	// TODO: Constructor for creating
-	public VicinityObject(String type) {
+	public VicinityObject(String type, String oid) {
 		this.type = type;
 
 		// TODO: get oid from Martin
-		oid = "bulb" + cnt++;
+		this.oid = oid;
 
 		properties = new ArrayList<Property>();
 		actions = new ArrayList<Action>();
-
-		if (type.equals("Thermostate")) {
-			properties.add(new Property(oid, "temp1", "Temperature", false, "Celsius", "float")); // TODO: haha....hardcode....
-			actions.add(new Action(oid, "switch", "OnOffStatus", "Adimentional", "boolean"));
-		} else if (type.equals("LightBulb")) {
-			properties.add(new Property(oid, "brightness", "Brightness", true, "percentage(0-100)", "int")); // TODO: haha....hardcode....
-			properties.add(new Property(oid, "color", "Color", true, "#rgb", "int")); // TODO: haha....hardcode....
-			properties.add(new Property(oid, "consumption", "Consumption", false, "watt", "double")); // TODO: haha....hardcode....
-		}
-	}
-
-	public void setVicinityObjectInstance(VicinityObjectInterface vobjInstance) {
-		for (Property prop: properties) {
-			s_logger.info("++++++++++++++ Setting Object instance");
-			prop.setVicinityObjectInstance(vobjInstance);
-		}
-		
-		for (Action act: actions) {
-			s_logger.info("++++++++++++++ Setting Object instance");
-			act.setVicinityObjectInstance(vobjInstance);
-		}
 	}
 
 	public String getObjectID() {
 		return oid;
 	}
 
+	public void addProperty(VicinityObjectInterface vobj, String pid, String monitors, boolean writable, String units, String datatype) {
+		properties.add(new Property(vobj, pid, monitors, writable, units, datatype));
+	}
+
+	public void addAction(VicinityObjectInterface vobj, String aid, String affects, String units, String datatype) {
+		actions.add(new Action(vobj, aid, affects, units, datatype));
+	}
+	
 	public List<Property> getProperties() {
 		return properties;
 	}
@@ -120,7 +106,7 @@ public class VicinityObject {
 		private String WRITE_LINKS = "write_links";
 		private String OUTPUT = "output";
 
-		private String oid;
+		//private String oid;
 		private String pid;
 		private String monitors;
 		private String writable; // TODO: or maybe bool?
@@ -134,9 +120,10 @@ public class VicinityObject {
 
 		private VicinityObjectInterface vobjInstance;
 		
-		public Property(String oid, String pid, String monitors, boolean writable, String units, String datatype) {
+		public Property(VicinityObjectInterface vobj, String pid, String monitors, boolean writable, String units, String datatype) {
 			// TODO: generate automatically
-			this.oid = oid;
+			//this.oid = oid;
+			this.vobjInstance = vobj;
 			
 			this.pid = pid;
 			this.monitors = monitors;
@@ -234,8 +221,6 @@ public class VicinityObject {
 		private static final String WRITE_LINKS = "write_links";
 		private static final String INPUT = "input";
 
-		private String oid;
-
 		private String aid;
 		private String affects;
 
@@ -246,10 +231,9 @@ public class VicinityObject {
 
 		private VicinityObjectInterface vobjInstance;
 
-		public Action(String oid, String aid, String affects, String units, String datatype) {
+		public Action(VicinityObjectInterface vobj, String aid, String affects, String units, String datatype) {
 			// TODO: hmmmmmm
-			this.oid = oid;
-			
+			this.vobjInstance = vobj;
 			this.aid = aid;
 			this.affects = affects;
 
@@ -257,16 +241,6 @@ public class VicinityObject {
 			this.aReadLinks.add(new Link("/objects/" + oid + "/actions/" + aid, "application/json"));
 			this.aWriteLinks.add(new Link("/objects/" + oid + "/actions/" + aid, "application/json"));
 		}
-
-		public void setVicinityObjectInstance(VicinityObjectInterface vobjInstance) {
-			this.vobjInstance = vobjInstance;
-		}
-
-		/* TODO: obviously this is not usable
-		public boolean setAction(String paramName, String value) {
-			return vobjInstance.setProperty(_oid, paramName, value);
-		}
-		*/
 
 		// TODO: merge getReadLinks and getWriteLinks
 		public String getReadLinks() {

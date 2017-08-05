@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.unikl.adapter.VicinityObjectInterface.VicinityObjectInterface;
 import org.unikl.adapter.integrator.UniklResourceContainer;
+import org.unikl.adapter.integrator.VicinityObject;
 
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHBridgeSearchManager;
@@ -81,6 +82,10 @@ public class PhilipsHue implements VicinityObjectInterface {
 
 		s_logger.info("[" + BUNDLE_ID + "]" + " activated!");
 	}
+	
+	public PhilipsHue getInstance() {
+		return this;
+	}
 
 	protected void deactivate(ComponentContext componentContext) {
 		s_logger.info("PhilipsHue bundle... unloading");
@@ -110,10 +115,6 @@ public class PhilipsHue implements VicinityObjectInterface {
 		sm.search(true, true);
 	}
 
-	public void setInstance(String oid) {
-		UniklResourceContainer.getInstance().getObjectByObjectID(oid).setVicinityObjectInstance(this);
-	}
-
 	// Local SDK Listener
 	private PHSDKListener listener = new PHSDKListener() {
 
@@ -138,9 +139,8 @@ public class PhilipsHue implements VicinityObjectInterface {
 		@Override
 		public void onBridgeConnected(PHBridge br, String username) {
 			s_logger.info("[" + BUNDLE_ID + "] bridge connected!");
-
-			// bridge = br;
-
+			int cnt = 1;
+			
 			mapping = new HashMap<String, String>();
 
 			phHueSDK.setSelectedBridge(br);
@@ -152,22 +152,22 @@ public class PhilipsHue implements VicinityObjectInterface {
 
 			s_logger.info("[" + BUNDLE_ID + "] " + allLights.size() + " light(s) found");
 
+			/*
+			 * TODO: Well, this part still looks like crap....
+			 */
+			
 			for (PHLight light : allLights) {
-				if (light == null)
-					s_logger.info("[" + BUNDLE_ID + "]" + " === 1");
+				String oid = "bulb" + cnt++;
+				VicinityObject vobj = new VicinityObject("LightBulb", oid);
 
-				if (mapping == null)
-					s_logger.info("[" + BUNDLE_ID + "]" + " === 2");
+				vobj.addProperty(getInstance(), "brightness", "Brightness", true, "percentage(0-100)", "int");
+				vobj.addProperty(getInstance(), "color", "Color", true, "#rgb", "int");
+				vobj.addProperty(getInstance(), "consumption", "Consumption", false, "watt", "double");
 
-				if (allLights == null)
-					s_logger.info("[" + BUNDLE_ID + "]" + " === 3");
+				UniklResourceContainer.getInstance().removeUniklResource(oid);
+				UniklResourceContainer.getInstance().addUniklResource(vobj);
 
-				if (UniklResourceContainer.getInstance() == null)
-					s_logger.info("[" + BUNDLE_ID + "]" + " === 4");
-
-				String oid = UniklResourceContainer.getInstance().addUniklResource("LightBulb");
 				mapping.put(oid, light.getUniqueId());
-				setInstance(oid);
 			}
 		}
 
@@ -235,9 +235,9 @@ public class PhilipsHue implements VicinityObjectInterface {
 				int r = (rgb >> 16) & 0xFF;
 				int g = (rgb >> 8) & 0xFF;
 				int b = (rgb >> 0) & 0xFF;
-				result.append(String.valueOf(Integer.toHexString(r)));
-				result.append(String.valueOf(Integer.toHexString(g)));
-				result.append(String.valueOf(Integer.toHexString(b)));
+				result.append(String.format("%02X", r));
+				result.append(String.format("%02X", g));
+				result.append(String.format("%02X", b));
 
 				return result.toString();
 

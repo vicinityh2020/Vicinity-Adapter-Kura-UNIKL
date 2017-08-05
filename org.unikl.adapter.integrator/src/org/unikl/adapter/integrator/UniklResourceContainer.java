@@ -63,40 +63,31 @@ public class UniklResourceContainer {
 		return null;
 	}
 
-	public String addUniklResource(String resourceType) {
-		// TODO: add more constructors for different cases
-		VicinityObject vobj = new VicinityObject(resourceType);
-
-		if (vobj == null)
-			s_logger.info("Cannot create VicinityObject!!!");
-
+	public void addUniklResource(VicinityObject vobj) {
 		objects.add(vobj);
-		return vobj.getObjectID();
 	}
 
 	public void removeUniklResource(String objectID) {
-		// objects.remove(getObjectByObjectID(objectID));
+		objects.remove(getObjectByObjectID(objectID));
 	}
-
+	
+	public void cleanUniklResourceContainer() {
+		//objects.clear();
+	}
+	
 	private String getAll() {
 		int n = objects.size();
-		s_logger.info("n = " + n);
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("[");
 
 		for (int i = 0; i < n; i++) {
-			s_logger.info(" i = " + i);
-			s_logger.info(objects.get(i).toString());
 			sb.append(objects.get(i).toString());
 			if (i != n - 1) // TODO: do something with coma
 				sb.append(",");
 		}
 		sb.append("]");
-		/*
-		 * s_logger.info("=========================="); s_logger.info(sb.toString());
-		 * s_logger.info("--------------------------");
-		 */
+
 		return sb.toString();
 	}
 
@@ -124,13 +115,6 @@ public class UniklResourceContainer {
 		}
 		return Response.status(404).build();
 	}
-	
-	@XmlAccessorType(XmlAccessType.FIELD)
-	public class C
-	{
-	  public String param1;
-	  public String param2;
-	}
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -150,13 +134,11 @@ public class UniklResourceContainer {
 							return Response.status(200).entity("{\"status\":\"success\"}").build();
 						else
 							return Response.status(200).entity("{\"status\":\"failure\"}").build();
-						//return Response.status(200).entity(prop.getPropertyValueStr(aid)).build();
 					}
 				}
 			}
 		}
 
-		// TODO: make more informative
 		return Response.status(200).entity("{\"status\":\"failure\"}").build();
 	}
 
