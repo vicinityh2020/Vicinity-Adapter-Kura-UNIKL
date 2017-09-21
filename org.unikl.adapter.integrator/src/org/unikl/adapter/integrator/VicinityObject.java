@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.unikl.adapter.VicinityObjectInterface.VicinityObjectInterface;
 
 public class VicinityObject {
-	private static final Logger s_logger = LoggerFactory.getLogger(UniklResourceContainer.class);
-
 	private static final String TYPE = "type";
 	private static final String OID = "oid";
 	private static final String PROPERTIES = "properties";
@@ -175,7 +173,7 @@ public class VicinityObject {
 		}
 
 		// TODO: Make more elegant, mother fucker!!!
-		public String getPropertyValue(String propertyName) {
+		private String getPropertyValue(String propertyName) {
 			return vobjInstance.getProperty(oid, propertyName);
 		}
 
@@ -231,6 +229,8 @@ public class VicinityObject {
 
 		private VicinityObjectInterface vobjInstance;
 
+		String formatter = "yyyy-MM-dd'T'HH:mm:ssz";
+
 		public Action(VicinityObjectInterface vobj, String aid, String affects, String units, String datatype) {
 			// TODO: hmmmmmm
 			this.vobjInstance = vobj;
@@ -277,6 +277,25 @@ public class VicinityObject {
 			return aid;
 		}
 
+		// TODO: Make more elegant, mother fucker!!!
+		private String getActionValue(String actionName) {
+			return vobjInstance.getAction(oid, actionName);
+		}
+
+		// TODO: fuck you if it is not writebale!
+		public boolean setActionValue(String actionName, String value) {
+			return vobjInstance.setAction(oid, actionName, value);
+		}
+	
+		public String getActionValueStr(String actionName) {
+			return new StringBuffer("{")
+					.append("\"value\":\"").append(getActionValue(actionName))
+					.append("\",")
+					.append("\"timestamp\":\"").append(new SimpleDateFormat(formatter).format(new Date())).append("\"")
+					.append("}")
+					.toString();
+		}
+		
 		@Override
 		public String toString() {
 			return new StringBuffer("{")

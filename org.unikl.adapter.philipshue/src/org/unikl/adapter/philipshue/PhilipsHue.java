@@ -97,17 +97,26 @@ public class PhilipsHue implements VicinityObjectInterface {
 
 	// TODO: actually noone needs this crap, but I would like to
 	// make an easter egg out of this later
-	/*
-	 * public void randomizeLights(final PHBridge bridge) { for (final PHLight light
-	 * : allLights) { Timer timer = new Timer(); timer.scheduleAtFixedRate(new
-	 * TimerTask() {
-	 * 
-	 * @Override public void run() { Random rand = new Random(); final PHLightState
-	 * lightState = new PHLightState(); lightState.setBrightness(rand.nextInt(255));
-	 * lightState.setHue(rand.nextInt(65535));
-	 * lightState.setBrightness(rand.nextInt(65535)); bridge.updateLightState(light,
-	 * lightState); } }, 100, 100); } }
-	 */
+	
+	  public void randomizeLights() {
+			final PHBridge bridge = phHueSDK.getSelectedBridge();
+
+			if (bridge == null)
+				return ;
+
+			List<PHLight> allLights = bridge.getResourceCache().getAllLights();
+			
+		  for (final PHLight light : allLights) { Timer timer = new Timer(); timer.scheduleAtFixedRate(new
+	  TimerTask() {
+	  
+	  @Override public void run() {
+		  Random rand = new Random();
+		  final PHLightState lightState = new PHLightState();
+		  lightState.setHue(rand.nextInt(65535));
+		  bridge.updateLightState(light, lightState); } }, 50, 50); 
+		  }
+	}
+	 
 
 	// +
 	public void searchBridge() {
@@ -163,8 +172,9 @@ public class PhilipsHue implements VicinityObjectInterface {
 				vobj.addProperty(getInstance(), "brightness", "Brightness", true, "percentage(0-100)", "int");
 				vobj.addProperty(getInstance(), "color", "Color", true, "#rgb", "int");
 				vobj.addProperty(getInstance(), "consumption", "Consumption", false, "watt", "double");
+				vobj.addAction(getInstance(), "switch", "OnOffStatus", "adimensional", "boolean");
 
-				UniklResourceContainer.getInstance().removeUniklResource(oid);
+				UniklResourceContainer.getInstance().removeUniklResource(oid); // wtf is this?? was i drunk?
 				UniklResourceContainer.getInstance().addUniklResource(vobj);
 
 				mapping.put(oid, light.getUniqueId());
@@ -281,19 +291,83 @@ public class PhilipsHue implements VicinityObjectInterface {
 
 			} else if (propertyName.equals("color")) {
 
-				if (value.length() != 6)
-					return false;
-				float[] xy = PHUtilities.calculateXYFromRGB(Integer.parseInt(value.substring(0, 2), 16),
-						Integer.parseInt(value.substring(2, 4), 16), Integer.parseInt(value.substring(4, 6), 16),
-						light.getModelNumber());
-				s_logger.info("[" + BUNDLE_ID + "] setProperty color " + Integer.parseInt(value.substring(0, 2), 16)
-						+ " " + Integer.parseInt(value.substring(2, 4), 16) + " "
-						+ Integer.parseInt(value.substring(4, 6), 16));
-				lightState.setX(xy[0]);
-				lightState.setY(xy[1]);
+				if (value.length() == 7 && value.charAt(0) == '#')
+					value = value.substring(1);
+				
+				if (value.length() == 6) {
+					float[] xy = PHUtilities.calculateXYFromRGB(Integer.parseInt(value.substring(0, 2), 16),
+							Integer.parseInt(value.substring(2, 4), 16), Integer.parseInt(value.substring(4, 6), 16),
+							light.getModelNumber());
+					s_logger.info("[" + BUNDLE_ID + "] setProperty color " + Integer.parseInt(value.substring(0, 2), 16)
+							+ " " + Integer.parseInt(value.substring(2, 4), 16) + " "
+							+ Integer.parseInt(value.substring(4, 6), 16));
+					lightState.setX(xy[0]);
+					lightState.setY(xy[1]);
+					bridge.updateLightState(light, lightState);
+
+					return true;
+					
+				} 
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public String getAction(String oid, String actionName) {
+		s_logger.info("[" + BUNDLE_ID + "] get action: " + actionName + " oid: " + oid);
+
+		PHBridge bridge = phHueSDK.getSelectedBridge();
+
+		if (bridge == null)
+			return "";
+
+		List<PHLight> allLights = bridge.getResourceCache().getAllLights();
+
+		for (PHLight light : allLights) {
+			String id = mapping.get(oid);
+
+			if (!light.getUniqueId().equals(id))
+				continue;
+
+			PHLightState lightState = light.getLastKnownLightState();
+
+			if (actionName.equals("switch")) {
+				boolean switchonoff;
+				switchonoff = lightState.isOn();
+
+				return String.valueOf(switchonoff);
+			}
+		}
+		return "";
+	}
+
+	@Override
+	public boolean setAction(String oid, String actionName, String value) {
+		s_logger.info("[" + BUNDLE_ID + "] set action: " + actionName + " oid: " + oid + " value: " + value);
+
+		PHBridge bridge = phHueSDK.getSelectedBridge();
+
+		if (bridge == null)
+			return false;
+
+		List<PHLight> allLights = bridge.getResourceCache().getAllLights();
+
+		for (PHLight light : allLights) {
+			String id = mapping.get(oid);
+
+			if (!light.getUniqueId().equals(id))
+				continue;
+
+			PHLightState lightState = new PHLightState();
+
+			if (actionName.equals("switch")) {
+				boolean booleanValue = (boolean) (Boolean.parseBoolean(value));
+				lightState.setOn(booleanValue);
 				bridge.updateLightState(light, lightState);
 
 				return true;
+
 			}
 		}
 		return false;

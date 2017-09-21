@@ -100,7 +100,7 @@ public class UniklResourceContainer {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{oid}/properties/{pid}")
-	public Response getMsg(@PathParam("oid") String oid, @PathParam("pid") String pid) {
+	public Response getProperty(@PathParam("oid") String oid, @PathParam("pid") String pid) {
 		// TODO: man....that sucks so much!!!
 		// I think Property and Action should implement the same interface
 		for (VicinityObject obj : objects) {
@@ -120,12 +120,9 @@ public class UniklResourceContainer {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{oid}/properties/{pid}")
-	public Response getMsg(PropPojo input, @PathParam("oid") String oid, @PathParam("pid") String pid) {
+	public Response setProperty(PropPojo input, @PathParam("oid") String oid, @PathParam("pid") String pid) {
 		// TODO: man....that sucks so much!!!
 		// I think Property and Action should implement the same interface
-		
-		s_logger.info("----------- POST parameter : " + pid + " value : " + input.value);
-
 		for (VicinityObject obj : objects) {
 			if (oid.equals(obj.getObjectID())) {
 				for (VicinityObject.Property prop : obj.getProperties()) {
@@ -142,4 +139,43 @@ public class UniklResourceContainer {
 		return Response.status(200).entity("{\"status\":\"failure\"}").build();
 	}
 
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/{oid}/actions/{aid}")
+	public Response getAction(@PathParam("oid") String oid, @PathParam("aid") String aid) {
+		for (VicinityObject obj : objects) {
+			if (oid.equals(obj.getObjectID())) {
+				for (VicinityObject.Action act : obj.getActions()) {
+					if (aid.equals(act.getActionID())) {
+						return Response.status(200).header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
+								.entity(act.getActionValueStr(aid)).build();
+					}
+				}
+			}
+		}
+
+		return Response.status(404).build();
+	}
+
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/{oid}/actions/{aid}")
+	public Response setAction(PropPojo input, @PathParam("oid") String oid, @PathParam("aid") String aid) {
+		for (VicinityObject obj : objects) {
+			if (oid.equals(obj.getObjectID())) {
+				for (VicinityObject.Action act : obj.getActions()) {
+					if (aid.equals(act.getActionID())) {
+						if (act.setActionValue(aid, input.value))
+							return Response.status(200).entity("{\"status\":\"success\"}").build();
+						else
+							return Response.status(200).entity("{\"status\":\"failure\"}").build();
+					}
+				}
+			}
+		}
+
+		return Response.status(200).entity("{\"status\":\"failure\"}").build();
+	}
 }
