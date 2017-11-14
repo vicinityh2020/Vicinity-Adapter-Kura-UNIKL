@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" immediate="true" name="org.unikl.adapter.coap.UniklCoapServer">
-   <implementation class="org.unikl.adapter.coap.UniklCoapServer"/>
-   <service>
-      <provide interface="org.unikl.adapter.sensors.SensorChangedListener"/>
-   </service>
-   <reference bind="setUniklSensorService" cardinality="1..1" interface="org.unikl.adapter.sensors.SensorService" name="UniklSensorService" policy="static" unbind="unsetUniklSensorService"/>
-</scr:component>
