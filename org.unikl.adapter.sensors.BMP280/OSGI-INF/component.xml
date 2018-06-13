@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" name="org.unikl.adapter.sensors.BMP280">
-   <implementation class="org.unikl.adapter.sensors.BMP280.TemperaturePressureBMP280"/>
-</scr:component>
