@@ -4,3 +4,8 @@ Eclipse Kura is an Eclipse IoT project that provides a platform for building IoT
 
 Kura runs on top of the Java Virtual Machine (JVM) and leverages OSGi, a dynamic component system for Java, to simplify the process of writing reusable software building blocks. It offers API access to the hardware interfaces of IoT Gateways (serial ports, GPS, watchdog, GPIOs, I2C, etc.). It also offers OSGI bundle to simplify the management of network configurations, the communication with IoT servers, and the remote management of the gateway.
 
+### Kura Adapter Deployment and Configuration
+In order to use this Kura Adapter, you should firstly setup your eclipse IDE, clone and import this repository. The following link could help you.
+
+
+### Functionality and API
