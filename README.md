@@ -16,7 +16,7 @@ Next step is to import all eight bundles in Raspberry-framework and then let the
 
 NOTE: In “org.unikl.adapter.philipshue”-codes, you should write the “lastIpAddress” that match the IP address of the Hue Bridge on your network.
 
-Now you are able to control your Philips Hue lamp, bulb1. For example, you can change the color using http://<raspberry-ip>/objects/bulb1/properties/color.
+Now you are able to control your Philips Hue lamp, bulb1. For example, you can change the color using PUT, then http://<your-raspberry-ip-address>/objects/bulb1/properties/color.
 
 ### Functionality and API
 At this moment, Vicinity adapter based on Eclipse Kura provides two properties (color and brightness) and one action (switch). Using the VICINITY Kura adapter, it is possible to control color and brightness of a Philips Hue light and to switch off the light. Every property/action has read link (GET-method) and write link (PUT-Method for property and POST-method for action).
